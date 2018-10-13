@@ -1,0 +1,23 @@
+fillin:
+  enabled: true
+  param: 
+    name: formEditAuteur
+fields:
+  photo1:
+     file: true
+    sfFileValidator:
+      mime_types:
+      - 'image/jpeg'
+      mime_types_error: L'image doit être de type JPEG
+      max: 100000
+      max_size_error: La taille maximum d'image est de 100 Ko
+  photo2:
+     file: true
+    sfFileValidator:
+      mime_types:
+      - 'image/jpeg'
+      mime_types_error: L'image doit être de type JPEG
+      max: 100000
+      max_size_error: La taille maximum d'image est de 100 Ko
+
+       

@@ -1,0 +1,12 @@
+show:
+  is_secure:  off
+
+showmap:
+  is_secure:  off
+
+edit:
+  is_secure:  on
+  credentials: troqueur
+
+
+

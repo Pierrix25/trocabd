@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions name="soapapi" targetNamespace="urn:soapapi" xmlns:typens="urn:soapapi" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:types>
+  <xsd:schema targetNamespace = "http://127.0.0.1/customer.xsd" xmlns:xsd = "http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="troqueur">
+     <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element name="troqueurID" type="xsd:float" />
+	<xsd:element name="login" type="xsd:string" />
+	<xsd:element name="nom" type="xsd:string" />
+	<xsd:element name="cp" type="xsd:string" />
+	<xsd:element name="ville" type="xsd:string" />
+	<xsd:element name="lon" type="xsd:float" />
+	<xsd:element name="lat" type="xsd:float" />
+      </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+  </xsd:schema>
+</wsdl:types>
+   <message name="getFactorial">
+      <part name="user" type="xsd:string"/>
+      <part name="password" type="xsd:string"/>
+      <part name="number" type="xsd:float"/>
+   </message>
+   <message name="getFactorialResponse">
+      <part name="return" type="xsd:float"/>
+   </message>   
+   <message name="getListUsers">
+      <part name="sortTroqueurs" type="xsd:string"/>
+      <part name="filtreLonLat" type="xsd:string"/>
+   </message>
+   <message name="getListUsersResponse">
+      <part name="return" element="troqueur"/>
+   </message>   
+   <message name="setListUsersLonLat">
+      <part name="listeTroqueurs" element="troqueur"/>
+   </message>   
+    <message name="setListUsersLonLatResponse">
+      <part name="return" type="xsd:float"/>
+   </message>   
+   <portType name="soapapiPortType">
+      <operation name="getFactorial">
+         <documentation>
+            user            required
+            password            required
+ 
+            Generates the factorial of a passed number.
+         </documentation>
+         <input message="typens:getFactorial"/>
+         <output message="typens:getFactorialResponse"/>
+      </operation>
+      <operation name="getListUsers">
+         <documentation>
+            sortTroqueurs            required
+            filtreLonLat            required
+            Generates the list of users.
+         </documentation>
+         <input message="typens:getListUsers"/>
+         <output message="typens:getListUsersResponse"/>
+      </operation>
+      <operation name="setListUsersLonLat">
+         <documentation>
+            listeTroqueurs            required
+            Generates the list of users.
+         </documentation>
+         <input message="typens:setListUsersLonLat"/>
+         <output message="typens:setListUsersLonLatResponse"/>
+      </operation>
+   </portType>
+   <binding name="soapapiBinding" type="typens:soapapiPortType">
+      <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <operation name="getFactorial">
+         <soap:operation soapAction="urn:soapapiAction"/>
+         <input>
+            <soap:body namespace="urn:soapapi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </input>
+ 
+         <output>
+            <soap:body namespace="urn:soapapi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </output>
+      </operation>      
+      <operation name="getListUsers">
+         <soap:operation soapAction="urn:soapapiAction"/>
+         <input>
+            <soap:body namespace="urn:soapapi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </input>
+ 
+         <output>
+            <soap:body namespace="urn:soapapi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </output>
+      </operation>      
+      <operation name="setListUsersLonLat">
+         <soap:operation soapAction="urn:soapapiAction"/>
+         <input>
+            <soap:body namespace="urn:soapapi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </input>
+ 
+         <output>
+            <soap:body namespace="urn:soapapi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </output>
+      </operation>      
+   </binding>
+   <service name="soapapiService">
+      <port name="soapapiPort" binding="typens:soapapiBinding">
+         <soap:address location="http://127.0.0.1/soapapi.php"/>
+      </port>
+   </service>
+</definitions>

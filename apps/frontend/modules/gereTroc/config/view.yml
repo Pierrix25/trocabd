@@ -1,0 +1,16 @@
+editSuccess:
+
+  metas:
+    title:        Mise à jour Troc
+    
+listSuccess:
+
+  metas:
+    title:        Liste de Troc
+
+showSuccess:
+
+  metas:
+    title:        Détail du Troc
+
+

@@ -1,0 +1,12 @@
+list:
+  is_secure:  off
+
+show:
+  is_secure:  off
+
+edit:
+  is_secure:  on
+  credentials: troqueur
+
+
+

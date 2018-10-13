@@ -1,0 +1,29 @@
+/*
+Title 	: CSS for Simple Star Rating Script Using Mootools
+Author 	: Nikhil Kunder
+Date 	: 2008/01/12
+Version : 1.0
+    moorating_v1.0.js & moorating.css  is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ 	Lesser General Public License for more details.
+*/
+@charset "utf-8";
+/* CSS Document */
+/* Star rating container: can vary as per design , or even remove this is not required */
+.moostar_container{z-index:9999999;  background:url(bkg_do_rating.gif) no-repeat 0 0; width:200px; height:50px; padding:0px 0px 0px 0px; overflow:hidden; }
+.moostar_container_inner{padding:10px 0px 0px 20px;z-index:9999999; }
+/* End of container */
+
+
+/* Rating With Stars */
+.hearts {background: url('hearts.gif');}
+.bars {background: url('bars.gif');}
+.stars {background: url('stars.gif');}
+
+.moostar { margin:0px;padding:0px; overflow:hidden; width: 84px; height: 20px; float: left; repeat-x; }
+.moostar span { float: left; margin:0px;padding:0px;  display: block; width: 84px; height: 20px; text-decoration: none; text-indent: -9000px; z-index: 20; }
+.moostar .curr { background-position:left 25px;}
+.moostartval{ left: 15px; position: relative; float: left; font-size:20px; color:#999999; font-family:"trebuchet MS", Tahoma }
+
+

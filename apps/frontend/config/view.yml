@@ -1,0 +1,18 @@
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        Troc de bandes dessinées
+    robots:       index, follow
+    description:  Négociez vos échanges
+    keywords:     troc, bandes dessinées, 
+    language:     en
+
+  javascripts:    %SF_PROTOTYPE_WEB_DIR%/js/prototype, %SF_WEB_DIR%/js/tiny_mce/tiny_mce.js
+
+  stylesheets:    [main]
+
+  has_layout:     on
+  layout:         layout
+

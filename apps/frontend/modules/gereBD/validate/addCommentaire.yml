@@ -1,0 +1,9 @@
+fillin:
+    enabled: true
+fields:
+    commentaire:
+      sfStringValidator:
+          min: 0
+          min_error: Aucun commentaire saisi
+          max: 500
+          max_error: Commentaire trop long   

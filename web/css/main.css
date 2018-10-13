@@ -1,0 +1,415 @@
+.utilisateur { 
+  color:#555;
+}
+.moderateur { 
+  background-color: #FF6600;
+  color:blue;
+}
+.titrePageList {
+	text-decoration: blink;
+	font-size: 15px;
+	font-family: "Comic Sans MS";
+	color: orange;
+}
+
+.titrePageCreate {
+	background-color: #3333CC;
+	text-decoration: blink;
+	font-size: 15px;
+	font-family: "Comic Sans MS";
+	color: white;
+	width: 100%;
+}
+
+.titrePageEdit {
+	background-color: #FF6600;
+	text-decoration: blink;
+	font-size: 15px;
+	font-family: "Comic Sans MS";
+	color: blue;
+	width: 100%;
+}
+
+.titrePageShow {
+	background-color: #FFF9BD;
+	text-decoration: blink;
+	font-size: 15px;
+	font-family: "Comic Sans MS";
+	color: orange;
+	width: 100%;
+}
+
+.Style4 {
+	color: #66CC33;
+	font-size: 50px;
+	font-family: "Comic Sans MS";
+}
+.Style5 {
+	color: #3333CC;
+	font-size: 50px;
+	font-family: "Comic Sans MS";
+}
+.Style6 {
+	color: #FF6600;
+	font-size: 50px;
+	font-family: "Comic Sans MS";
+}
+
+.listeObjetTitreTableau
+{
+	color: #003366;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.listeObjetLigneTableau
+{
+	color: #003366;
+	font-size: 20px;
+}
+
+.listeTroqueurLigneTableau
+{
+	color: #FF6600;
+	font-size: 12px;
+}
+
+
+.listeTitreTroqueurLigneTableau
+{
+	color: #3333CC;
+	font-size: 14px;
+}
+
+.actionMenuContextuel
+{
+	color: #003366;
+	font-style: italic;
+	font-size: 15px;
+}
+
+.menuCommun
+{
+	font-size: 15px;
+	padding-left: 20px;
+}
+
+.actionSousMenuConnection
+{
+	color: #003366;
+	font-size: 15px;
+	background-color: #B0E0E6;
+	width:230px;
+}
+
+.actionRecherche
+{
+	color: #003366;
+	font-size: 12px;
+}
+
+.cheminDeFer
+{
+	color: #003366;
+	font-size: 15px;
+	background-position: top 25%;
+}
+
+.roundedcornr_box_508182 {
+	font-size: 12px;
+	background-color: #B0E0E6;
+	width:230px;
+}
+.roundedcornr_top_508182 div {
+   background: url(../images/roundedcornr_584081_tl.png) no-repeat top left ;
+}
+.roundedcornr_top_508182 {
+   background: url(../images/roundedcornr_584081_tr.png) no-repeat top right ;
+}
+.roundedcornr_bottom_508182 div {
+   background: url(../images/roundedcornr_584081_bl.png) no-repeat bottom left;
+}
+.roundedcornr_bottom_508182 {
+   background: url(../images/roundedcornr_584081_br.png) no-repeat bottom right;
+}
+
+.roundedcornr_top_508182 div, .roundedcornr_top_508182, 
+.roundedcornr_bottom_508182 div, .roundedcornr_bottom_508182 {
+   width: 230px;
+   height: 20px;
+   font-size: 1px;
+}
+.roundedcornr_content_508182 { margin: 0 15px; }
+
+
+.roundedcornr_box_719771 {
+	font-size: 20px;
+	background-color: #ADFF2F;
+	text-align: center;
+}
+.roundedcornr_top_719771 div {
+   background: url(../images/roundedcornr_719771_tl.png) no-repeat top left;
+}
+.roundedcornr_top_719771 {
+   background: url(../images/roundedcornr_719771_tr.png) no-repeat top right;
+}
+.roundedcornr_bottom_719771 div {
+   background: url(../images/roundedcornr_719771_bl.png) no-repeat bottom left;
+}
+.roundedcornr_bottom_719771 {
+   background: url(../images/roundedcornr_719771_br.png) no-repeat bottom right;
+}
+
+.roundedcornr_top_719771 div, .roundedcornr_top_719771, 
+.roundedcornr_bottom_719771 div, .roundedcornr_bottom_719771 {
+   width: 100%;
+   height: 5px;
+   font-size: 1px;
+}
+.roundedcornr_content_719771 { margin: 0 0px; }
+
+.roundedcornr_box_304127 {
+   background: #dcdcdc ;
+}
+.roundedcornr_top_304127 div {
+   background: url(../images/roundedcornr_304127_tl.gif) no-repeat top left;
+}
+.roundedcornr_top_304127 {
+   background: transparent url(../images/roundedcornr_304127_tr.gif) no-repeat top right;
+}
+.roundedcornr_bottom_304127 div {
+   background: url(../images/roundedcornr_304127_bl.gif) no-repeat bottom left;
+}
+.roundedcornr_bottom_304127 {
+   background: transparent url(../images/roundedcornr_304127_br.gif) no-repeat bottom right;
+}
+
+.roundedcornr_top_304127 div, .roundedcornr_top_304127,
+.roundedcornr_bottom_304127 div, .roundedcornr_bottom_304127 {
+   width: 100%;
+   height: 30px;
+   font-size: 1px;
+}
+.roundedcornr_content_304127 { margin: 0 30px; }
+
+
+.roundedcornr_box_114025 {
+   background: #f0e68c url(../images/roundedcornr_114025_grad.gif) repeat-x top left;
+}
+.roundedcornr_top_114025 div {
+   background: url(../images/roundedcornr_114025_tl.gif) no-repeat top left;
+}
+.roundedcornr_top_114025 {
+   background: transparent url(../images/roundedcornr_114025_tr.gif) no-repeat top right;
+}
+.roundedcornr_bottom_114025 div {
+   background: url(../images/roundedcornr_114025_bl.gif) no-repeat bottom left;
+}
+.roundedcornr_bottom_114025 {
+   background: transparent url(../images/roundedcornr_114025_br.gif) no-repeat bottom right;
+}
+
+.roundedcornr_top_114025 div, .roundedcornr_top_114025,
+.roundedcornr_bottom_114025 div, .roundedcornr_bottom_114025 {
+   width: 100%;
+   height: 30px;
+   font-size: 1px;
+}
+.roundedcornr_content_114025 { margin: 0 30px; }
+
+/*
+ Predefined css class for buttons with only icon. Add this class (x-btn-icon) and a class with a background-image
+ to your button for a button with just an icon.
+ e.g.
+  */
+  
+.upload-icon  { background-image: url(../images/image_add.png) no-repeat; }
+ 
+
+.x-form-file-wrap {
+    position: relative;
+    height: 22px;
+/* CHANGE */
+overflow : hidden;
+/* END CHANGE */
+}
+.x-form-file-wrap .x-form-file {
+position: absolute;
+right: 0;
+-moz-opacity: 0;
+filter:alpha(opacity: 0);
+opacity: 0;
+z-index: 2;
+    height: 22px;
+}
+.x-form-file-wrap .x-form-file-btn {
+position: absolute;
+right: 0;
+z-index: 1;
+}
+.x-form-file-wrap .x-form-file-text {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+    color: #777;
+}
+
+.track {
+   background-repeat: no-repeat;
+   position: relative;
+   height: 2em; width: 8em; top: 0.5em;
+   cursor: pointer; z-index: 0;
+}
+.handle {
+   background-color: transparent;
+   position: absolute;
+   height: 0.25em; width: 0.25em; top: 0.5em;
+   cursor: move; z-index: 2;
+}
+.vitrine {
+   background-color: #FF6600;
+   background-repeat: no-repeat;
+   position: relative;
+   height: 2em; width: 50em; top: 0.5em;
+   cursor: pointer; z-index: 0;
+}
+/*
+            Vertical Accordions
+        */
+
+        .accordion_toggle {
+            display: block;
+            height: 30px;
+            width: 680px;
+            background: url(/images/accordion_toggle.jpg) no-repeat top right #a9d06a;
+            padding: 0 10px 0 10px;
+            line-height: 30px;
+            color: #ffffff;
+            font-weight: normal;
+            text-decoration: none;
+            outline: none;
+            font-size: 12px;
+            color: #000000;
+            border-bottom: 1px solid #cde99f;
+            cursor: pointer;
+            margin: 0 0 0 0;
+        }
+
+        .accordion_toggle_active {
+            background: url(/images/accordion_toggle_active.jpg) no-repeat top right #e0542f;
+            color: #ffffff;
+            border-bottom: 1px solid #f68263;
+        }
+
+        .accordion_content {
+            background-color: #ffffff;
+            color: #444444;
+            overflow: hidden;
+        }
+
+            .accordion_content h2 {
+                margin: 15px 0 5px 10px;
+                color: #0099FF;
+            }
+
+            .accordion_content p {
+                line-height: 150%;
+                padding: 5px 10px 15px 10px;
+            }
+
+        .vertical_accordion_toggle {
+            display: block;
+            height: 30px;
+            width: 600px;
+            background: url(/images/accordion_toggle.jpg) no-repeat top right #a9d06a;
+            padding: 0 10px 0 10px;
+            line-height: 30px;
+            color: #ffffff;
+            font-weight: normal;
+            text-decoration: none;
+            outline: none;
+            font-size: 12px;
+            color: #000000;
+            border-bottom: 1px solid #cde99f;
+            cursor: pointer;
+            margin: 0 0 0 0;
+        }
+
+        .vertical_accordion_toggle_active {
+            background: url(/images/accordion_toggle_active.jpg) no-repeat top right #e0542f;
+            color: #ffffff;
+            border-bottom: 1px solid #f68263;
+        }
+
+        .vertical_accordion_content {
+            background-color: #ffffff;
+            color: #444444;
+            overflow: hidden;
+        }
+
+            .vertical_accordion_content h2 {
+                margin: 15px 0 5px 10px;
+                color: #0099FF;
+            }
+
+            .vertical_accordion_content p {
+                line-height: 150%;
+                padding: 5px 10px 15px 10px;
+            }
+
+        /*
+            Horizontal Accordion
+        */
+
+        .horizontal_accordion_toggle {
+            /* REQUIRED */
+            float: left;    /* This make sure it stays horizontal */
+            /* REQUIRED */
+
+            display: block;
+            height: 400px;
+            width: 30px;
+            background: url(/images/h_accordion_toggle.jpg) no-repeat top left #a9d06a;
+            color: #ffffff;
+            text-decoration: none;
+            outline: none;
+            border-right: 1px solid #cde99f;
+            cursor: pointer;
+            margin: 0 0 0 0;
+        }
+
+        .horizontal_accordion_toggle_active {
+            background: url(/images/h_accordion_toggle_active.jpg) no-repeat top left #e0542f;
+            border-right: 1px solid #f68263;
+        }
+
+        .horizontal_accordion_content {
+            /* REQUIRED */
+            height: 100px;    /* We need to define a height for the accordion as it stretches the width */
+            float: left;    /* This make sure it stays horizontal */
+            /* REQUIRED */
+
+            overflow: hidden;
+            background-color: #ffffff;
+            color: #444444;
+        }
+
+            .horizontal_accordion_content p {
+                width: 450px;
+                line-height: 150%;
+                padding: 5px 10px 15px 10px;
+            }
+
+
+    /* Container styling*/
+    #horizontal_container {
+      margin: 20px auto 20px auto;
+      width: 680px;
+      height: 100px;
+    }
+
+    #vertical_nested_container {
+      margin: 20px auto 20px auto;
+      width: 620px;
+    }
+

@@ -1,0 +1,463 @@
+---
+propel: 
+  album: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    talbum: 
+      type: VARCHAR
+      size: 255
+    commentaire: 
+      type: VARCHAR
+      size: 255
+    dateparu: 
+      type: VARCHAR
+      size: 50
+    depotlegal: 
+      type: VARCHAR
+      size: 20
+    histoire: 
+      type: VARCHAR
+      size: 1592
+    integrale: 
+      type: INTEGER
+    isbn: 
+      type: VARCHAR
+      size: 255
+    issn: 
+      type: VARCHAR
+      size: 255
+    nbrepage: 
+      type: VARCHAR
+      size: 5
+    editeur_id: 
+    genre_id: 
+    serie_id: 
+    photo1: 
+      type: VARCHAR
+      size: 255
+    photo2: 
+      type: VARCHAR
+      size: 255
+    utilisateur_id: 
+    note: 
+      type: INTEGER
+    _uniques: 
+      id: 
+        - id
+  auteur: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    coloriste: 
+      type: TINYINT
+    commentaire: 
+      type: VARCHAR
+      size: 255
+    dateNaissance: 
+      type: DATE
+    dessinateur: 
+      type: TINYINT
+    lieuNaissance: 
+      type: VARCHAR
+      size: 255
+    nom: 
+      type: VARCHAR
+      size: 255
+    pays_id: 
+    photo1: 
+      type: VARCHAR
+      size: 255
+    photo2: 
+      type: VARCHAR
+      size: 255
+    prenom: 
+      type: VARCHAR
+      size: 255
+    scenariste: 
+      type: TINYINT
+    surnom: 
+      type: VARCHAR
+      size: 255
+    web1: 
+      type: VARCHAR
+      size: 255
+    web2: 
+      type: VARCHAR
+      size: 255
+    utilisateur_id: 
+    _uniques: 
+      id: 
+        - id
+  auteuralbum: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+      primaryKey: true
+    album_id: 
+    auteur_id: 
+    dessinateur: 
+      type: TINYINT
+      required: true
+    scenariste: 
+      type: TINYINT
+      required: true
+    coloriste: 
+      type: TINYINT
+      required: true
+  editeur: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    nom: 
+      type: VARCHAR
+      size: 255
+    adresse1: 
+      type: VARCHAR
+      size: 255
+    adresse2: 
+      type: VARCHAR
+      size: 255
+    cp: 
+      type: VARCHAR
+      size: 255
+    pays_id: 
+    photo1: 
+      type: VARCHAR
+      size: 255
+    photo2: 
+      type: VARCHAR
+      size: 255
+    site: 
+      type: VARCHAR
+      size: 255
+    tel: 
+      type: VARCHAR
+      size: 255
+    ville: 
+      type: VARCHAR
+      size: 255
+    utilisateur_id: 
+    _uniques: 
+      id: 
+        - id
+  genre: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    nom: 
+      type: VARCHAR
+      size: 60
+      required: true
+      default: 
+    _uniques: 
+      id: 
+        - id
+  offrecible: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    album_id: 
+    utilisateurcible_id: 
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+    _uniques: 
+      id: 
+        - id
+  offresource: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    album_id: 
+    utilisateursource_id: 
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+    _uniques: 
+      id: 
+        - id
+  pays: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    nom: 
+      type: VARCHAR
+      size: 255
+      required: true
+      default: 
+    _uniques: 
+      id: 
+        - id
+  possede: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+      primaryKey: true
+    utilisateur_id: 
+    album_id: 
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+  serie: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    histoire: 
+      type: VARCHAR
+      size: 255
+    nom: 
+      type: VARCHAR
+      size: 255
+    commentaire: 
+      type: VARCHAR
+      size: 255
+    photo1: 
+      type: VARCHAR
+      size: 255
+    photo2: 
+      type: VARCHAR
+      size: 255
+    siteWeb1: 
+      type: VARCHAR
+      size: 255
+    siteWeb2: 
+      type: VARCHAR
+      size: 255
+    utilisateur_id: 
+    _uniques: 
+      id: 
+        - id
+  troc: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    utilisateursource_id: 
+    utilisateurcible_id: 
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+    etat_id: 
+      type: INTEGER
+    _uniques: 
+      id: 
+        - id
+  utilisateurcible: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    utilisateur_id: 
+    troc_id: 
+    note: 
+      type: INTEGER
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+    _uniques: 
+      id: 
+        - id
+  utilisateursource: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    utilisateur_id: 
+    troc_id: 
+    note: 
+      type: INTEGER
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+    _uniques: 
+      id: 
+        - id
+  communaute: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+      primaryKey: true
+    ncommunaute: 
+      type: VARCHAR
+      size: 25
+    devise: 
+      type: VARCHAR
+      size: 50
+    description: 
+      type: VARCHAR
+      size: 255
+    utilisateur_id: 
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+  membre: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+      primaryKey: true
+    utilisateur_id: 
+    communaute_id: 
+    membre: 
+      type: TINYINT
+      required: true
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+  utilisateur: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+      primaryKey: true
+    nom: 
+      type: VARCHAR
+      size: 25
+    prenom: 
+      type: VARCHAR
+      size: 25
+    login: 
+      type: VARCHAR
+      size: 15
+    mdp: 
+      type: VARCHAR
+      size: 10
+    rue2: 
+      type: VARCHAR
+      size: 50
+    rue3: 
+      type: VARCHAR
+      size: 50
+    rue4: 
+      type: VARCHAR
+      size: 50
+    cp: 
+      type: VARCHAR
+      size: 5
+    ville: 
+      type: VARCHAR
+      size: 50
+    lon: 
+      type: DECIMAL
+      size: 9
+      scale: 7
+    lat: 
+      type: DECIMAL
+      size: 9
+      scale: 7
+    email: 
+      type: VARCHAR
+      size: 50
+    question: 
+      type: VARCHAR
+      size: 50
+    reponse: 
+      type: VARCHAR
+      size: 20
+    nbVisiteur: 
+      type: DOUBLE
+    nbUtilisateur: 
+      type: DOUBLE
+    derniereConnexion: 
+      type: TIMESTAMP
+    userid:
+      type: INTEGER
+      required: true
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+  commentairealbum: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    commentaire: 
+      type: VARCHAR
+      size: 255
+    note: 
+      type: INTEGER
+    album_id: 
+    utilisateur_id: 
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+    _uniques: 
+      id: 
+        - id
+  news: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+    commentaire: 
+      type: VARCHAR
+      size: 255
+    utilisateur_id: 
+    created_at: 
+      type: TIMESTAMP
+    updated_at: 
+      type: TIMESTAMP
+    _uniques: 
+      id: 
+        - id
+
+
+

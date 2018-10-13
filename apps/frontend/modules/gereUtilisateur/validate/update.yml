@@ -1,0 +1,51 @@
+fillin:
+  enabled: true
+  param: 
+    name: formCompte
+fields:
+  nom:
+   required:
+      msg : Le nom est obligatoire
+  prenom:
+   required:
+      msg : Le prénom est obligatoire
+  login:
+   required:
+      msg : Le login est obligatoire
+   sfPropelUniqueValidator:
+      class: Utilisateur
+      column: login
+      unique_error: Ce login existe déjà. Choisissez en un autre.
+  mdp:
+   required:
+      msg : Le mot de passe est obligatoire
+   sfStringValidator:
+      min: 6
+      min_error: Au minimum 6 caractères
+  mdp2:
+   required:
+      msg : Le mot de passe est obligatoire
+   sfCompareValidator:
+      check: mdp
+      compare_error: Les 2 mots de passe sont différents
+  rue2:
+   required:
+      msg : La 1ère ligne d'adresse est obligatoire
+  cp:
+   required:
+      msg : Le code postal est obligatoire
+  ville:
+   required:
+      msg : La ville est obligatoire
+  email:
+   required:
+      msg : L'adresse email est obligatoire
+   sfEmailValidator:
+      strict: true
+      email_error : Cet email est invalide
+  question:
+   required:
+      msg : L'indice est obligatoire
+  reponse:
+   required:
+      msg : La réponse est obligatoire

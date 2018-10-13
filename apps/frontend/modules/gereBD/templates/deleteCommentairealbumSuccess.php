@@ -1,0 +1,1 @@
+<? echo 'votre commentaire a été supprimé'; ?>

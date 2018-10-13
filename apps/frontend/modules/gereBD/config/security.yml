@@ -1,0 +1,51 @@
+list:
+  is_secure:  off
+
+recherche:
+  is_secure:  off
+
+maVitrine:
+  is_secure:  on
+  credentials: [[ troqueur, manager ]]
+
+saVitrine:
+  is_secure:  off
+
+show:
+  is_secure:  off
+
+edit:
+  is_secure:  on
+  credentials: manager
+
+editSerie:
+  is_secure:  on
+  credentials: manager
+
+editEditeur:
+  is_secure:  on
+  credentials: manager
+
+editAuteur:
+  is_secure:  on
+  credentials: manager
+
+showAuteur:
+  is_secure:  off
+
+showEditeur:
+  is_secure:  off
+
+showGenre:
+  is_secure:  off
+
+showSerie:
+  is_secure:  off
+
+
+
+
+
+
+
+

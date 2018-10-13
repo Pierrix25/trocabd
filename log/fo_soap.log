@@ -1,0 +1,29 @@
+Dec 19 21:02:37 symfony [info] {sfRouting} connect "/"
+Dec 19 21:02:37 symfony [info] {sfRouting} connect "/symfony/:action/*"
+Dec 19 21:02:37 symfony [info] {sfRouting} connect "/:module"
+Dec 19 21:02:37 symfony [info] {sfRouting} connect "/:module/:action/*"
+Dec 19 21:02:37 symfony [info] {sfContext} initialization
+Dec 19 21:02:37 symfony [info] {sfController} initialization
+Dec 19 21:02:37 symfony [info] {sfRouting} match route [homepage] "/"
+Dec 19 21:02:37 symfony [info] {sfRequest} request parameters array (  'module' => 'default',  'action' => 'index',)
+Dec 19 21:02:37 symfony [info] {sfCreole} connect(): DSN: array (   'database' => 'trocabd',   'encoding' => NULL,   'hostspec' => 'localhost',   'password' => NULL,   'persistent' => NULL,   'phptype' => 'mysql',   'port' => NULL,   'protocol' => NULL,   'socket' => NULL,   'username' => 'root', ), FLAGS: 0
+Dec 19 21:02:37 symfony [info] {sfCreole} prepareStatement(): SELECT utilisateur.ID, utilisateur.NOM, utilisateur.PRENOM, utilisateur.LOGIN, utilisateur.MDP, utilisateur.RUE2, utilisateur.RUE3, utilisateur.RUE4, utilisateur.CP, utilisateur.VILLE, utilisateur.LON, utilisateur.LAT, utilisateur.EMAIL, utilisateur.QUESTION, utilisateur.REPONSE, utilisateur.NBVISITEUR, utilisateur.NBUTILISATEUR, utilisateur.DERNIERECONNEXION, utilisateur.USERID, utilisateur.CREATED_AT, utilisateur.UPDATED_AT FROM utilisateur WHERE utilisateur.LON=? ORDER BY nom ASC
+Dec 19 21:02:37 symfony [info] {sfCreole} executeQuery(): [3.01 ms] SELECT utilisateur.ID, utilisateur.NOM, utilisateur.PRENOM, utilisateur.LOGIN, utilisateur.MDP, utilisateur.RUE2, utilisateur.RUE3, utilisateur.RUE4, utilisateur.CP, utilisateur.VILLE, utilisateur.LON, utilisateur.LAT, utilisateur.EMAIL, utilisateur.QUESTION, utilisateur.REPONSE, utilisateur.NBVISITEUR, utilisateur.NBUTILISATEUR, utilisateur.DERNIERECONNEXION, utilisateur.USERID, utilisateur.CREATED_AT, utilisateur.UPDATED_AT FROM utilisateur WHERE utilisateur.LON=0 ORDER BY nom ASC
+Dec 19 21:02:44 symfony [info] {sfContext} initialization
+Dec 19 21:02:44 symfony [info] {sfController} initialization
+Dec 19 21:02:44 symfony [info] {sfRouting} match route [homepage] "/"
+Dec 19 21:02:44 symfony [info] {sfRequest} request parameters array (  'module' => 'default',  'action' => 'index',)
+Dec 19 21:02:44 symfony [info] {sfCreole} connect(): DSN: array (   'database' => 'trocabd',   'encoding' => NULL,   'hostspec' => 'localhost',   'password' => NULL,   'persistent' => NULL,   'phptype' => 'mysql',   'port' => NULL,   'protocol' => NULL,   'socket' => NULL,   'username' => 'root', ), FLAGS: 0
+Dec 19 21:02:44 symfony [info] {sfCreole} prepareStatement(): SELECT utilisateur.ID, utilisateur.NOM, utilisateur.PRENOM, utilisateur.LOGIN, utilisateur.MDP, utilisateur.RUE2, utilisateur.RUE3, utilisateur.RUE4, utilisateur.CP, utilisateur.VILLE, utilisateur.LON, utilisateur.LAT, utilisateur.EMAIL, utilisateur.QUESTION, utilisateur.REPONSE, utilisateur.NBVISITEUR, utilisateur.NBUTILISATEUR, utilisateur.DERNIERECONNEXION, utilisateur.USERID, utilisateur.CREATED_AT, utilisateur.UPDATED_AT FROM utilisateur ORDER BY nom ASC
+Dec 19 21:02:44 symfony [info] {sfCreole} executeQuery(): [2.45 ms] SELECT utilisateur.ID, utilisateur.NOM, utilisateur.PRENOM, utilisateur.LOGIN, utilisateur.MDP, utilisateur.RUE2, utilisateur.RUE3, utilisateur.RUE4, utilisateur.CP, utilisateur.VILLE, utilisateur.LON, utilisateur.LAT, utilisateur.EMAIL, utilisateur.QUESTION, utilisateur.REPONSE, utilisateur.NBVISITEUR, utilisateur.NBUTILISATEUR, utilisateur.DERNIERECONNEXION, utilisateur.USERID, utilisateur.CREATED_AT, utilisateur.UPDATED_AT FROM utilisateur ORDER BY nom ASC
+Oct 02 09:12:46 symfony [info] {sfRouting} connect "/"
+Oct 02 09:12:46 symfony [info] {sfRouting} connect "/symfony/:action/*"
+Oct 02 09:12:46 symfony [info] {sfRouting} connect "/:module"
+Oct 02 09:12:46 symfony [info] {sfRouting} connect "/:module/:action/*"
+Oct 02 09:12:46 symfony [info] {sfContext} initialization
+Oct 02 09:12:46 symfony [info] {sfController} initialization
+Oct 02 09:12:46 symfony [info] {sfRouting} match route [homepage] "/"
+Oct 02 09:12:46 symfony [info] {sfRequest} request parameters array (  'module' => 'default',  'action' => 'index',)
+Oct 02 09:12:46 symfony [info] {sfCreole} connect(): DSN: array (   'database' => 'trocabd',   'encoding' => NULL,   'hostspec' => 'localhost',   'password' => NULL,   'persistent' => NULL,   'phptype' => 'mysql',   'port' => NULL,   'protocol' => NULL,   'socket' => NULL,   'username' => 'root', ), FLAGS: 0
+Oct 02 09:12:46 symfony [info] {sfCreole} prepareStatement(): SELECT utilisateur.ID, utilisateur.NOM, utilisateur.PRENOM, utilisateur.LOGIN, utilisateur.MDP, utilisateur.RUE2, utilisateur.RUE3, utilisateur.RUE4, utilisateur.CP, utilisateur.VILLE, utilisateur.LON, utilisateur.LAT, utilisateur.EMAIL, utilisateur.QUESTION, utilisateur.REPONSE, utilisateur.NBVISITEUR, utilisateur.NBUTILISATEUR, utilisateur.DERNIERECONNEXION, utilisateur.USERID, utilisateur.CREATED_AT, utilisateur.UPDATED_AT FROM utilisateur WHERE utilisateur.LON=? ORDER BY nom ASC
+Oct 02 09:12:46 symfony [info] {sfCreole} executeQuery(): [2.79 ms] SELECT utilisateur.ID, utilisateur.NOM, utilisateur.PRENOM, utilisateur.LOGIN, utilisateur.MDP, utilisateur.RUE2, utilisateur.RUE3, utilisateur.RUE4, utilisateur.CP, utilisateur.VILLE, utilisateur.LON, utilisateur.LAT, utilisateur.EMAIL, utilisateur.QUESTION, utilisateur.REPONSE, utilisateur.NBVISITEUR, utilisateur.NBUTILISATEUR, utilisateur.DERNIERECONNEXION, utilisateur.USERID, utilisateur.CREATED_AT, utilisateur.UPDATED_AT FROM utilisateur WHERE utilisateur.LON=0 ORDER BY nom ASC

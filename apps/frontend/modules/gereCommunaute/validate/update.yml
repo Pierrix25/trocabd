@@ -1,0 +1,8 @@
+fillin:
+  enabled: true
+  param: 
+    name: formEditCommunaute
+fields:
+  ncommunaute:
+    required:
+      msg: Le champ nom doit contenir une valeur

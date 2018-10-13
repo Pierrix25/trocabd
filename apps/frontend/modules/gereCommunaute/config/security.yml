@@ -1,0 +1,22 @@
+list:
+  is_secure:  off
+
+recherche:
+  is_secure:  off
+
+maVitrine:
+  is_secure:  on
+  credentials: troqueur
+
+saVitrine:
+  is_secure:  off
+
+show:
+  is_secure:  off
+
+edit:
+  is_secure:  on
+  credentials: troqueur
+
+
+

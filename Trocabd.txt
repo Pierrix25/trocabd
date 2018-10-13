@@ -1,0 +1,920 @@
+_ Pour lancer sur mon poste : lancer wampserver puis le navigateur avec url http://localhost/index.php/
+
+-Autres évolutions :
+* Newsletter
+* Notifications
+* voir ce que ça donne sans les cadres de couleur
+* Documenter et imprimer modalités accès ovh
+* mettre annonce sur boncoin.fr
+
+* Déployer sur un site ou GuillmeCédé pourra tester :github ?
+
+
+* mail aux nouveaux inscrits
+
+
+- contacter troc.com, troc de l'ile
+
+* déclencher mail lors de l'inscription d'un troqueur :
+	- voir http://www.petitstrucs.fr/2011/09/configurer-le-fichier-factories-yml-pour-lenvoi-demail-depuis-un-serveur-mutualise-ovh/
+
+* Acheter serveur sur kimsuffi : et mettre en place la géolocalisation
+
+* Intégrer à facebook 
+
+- Faire logo avec 2 mains qui échangent des piles de BD et le slogan dessous : Partagez, Echangez, Economisez
+
+
+* à la fin mettre lien : mot de passe oublié vers gereoublie/edit
+
+
+* Adapter liste des trocs quand non connecté pour voir source et cible
+
+* vérifier si suppression de compte adapté à sfguard (supprimer aussi le compte dans sfguarduser)
+
+* Corriger bug de fond :
+	* Après la fin d'un troc, les BD changent de propriétaire et quand on consulte le troc elles sont inversées par rapport à leur réalité au moment du troc
+		* il faut gérer des dates de début et fin de possède
+		* à la fin du troc il faut créer une nouvelle occurence de possède et clore l'ancienne
+		* en consultation de troc il faut afficher les offres  liées au troc
+
+* Ameliorations Emeline :
+	* Conserver le menu de gauche affiché et déplier suivant le contexte (le menu présent affiché en gras)
+	* Prévoir de commenter les étapes du troc
+	* Déplacer champs recherche sous les titres
+	* Faire disparaîtrela BD de la partie vitrine quand elle est ajoutée dans l'offre
+
+
+* Proposer cadeau à celui qui saisit le plus de BD
+
+* Ajouter classement des saisie de BD 
+
+* Ajouter fonction de recherche de genre dans saisie de BD
+
+* Voir pourquoi la modif de BD multiplie les coloristes et dessinateur (mais pas le scénariste)
+
+* voir pourquoi l'uploade de fichier copie les fichiers à la racine sous le \ avec le nom = 'www\uploads\...' à la place du chemin !
+
+* voir comment placer en éditeur riche les commentaires sur BD
+
+
+* pbm à nouveau de perte de connexion :
+	- Création du lien permission / group et user permission qui manquent pour troqueur.... mais rien de mieux!!!
+	- Restauration avec maj : ko
+	- restauration complet : ko
+
+
+======================================== Déploiement 10/05/2015 0h00 !!!
+
+- voir comment placer en éditeur riche les commentaires de l'accueil 
+
+
+======================================== Déploiement 09/05/2015
+
+- Voir pk image vieux fourneaux ne s'affiche pas : upload pas fait
+
+- Voir pk trocadmin ne voit pas ses BD, et ne peut pas modifier la BD (droits) : pb de security.yml à déployer
+
+-  voir pk bd créée n'est pas visible : était dûr à série inexistante
+
+- TinymCE n'est pas installé correctement sur la version OVH : erreur 500 après login en trocadmin/251066
+	- modif chemin création variable sf_www_dir
+	- essai de chargement comme prototype
+	- poser question sur comment modifier les fichier tinyMCE
+	- essayer avec autre outil riche que tiny
+	- setting.yaml
+			prod:
+ 			 .settings:
+ 			   no_script_name:           off
+  			   web_dir:                  /home/trocabd/www
+
+  			javascripts:    %SF_PROTOTYPE_WEB_DIR%/js/prototype, %SF_ROOT_DIR%/www/js/tiny_mce/tiny_mce.js
+
+==========================> Déploiement 17/02/2015
+
+- Permettre aux internautes de naviguer dans l'historique des news
+
+==========================> Déploiement 05/10/2014
+
+- Prochain déploiement :
+	- exécuter trocabd_0.14.sql
+	- exécuter trocabd_0.15.sql
+	- Déployer objets de base de données : album (car schémà modifié et objet regénéré)
+
+- TESTER : avec trocessai Essayer de mettre le credential manager à un utilisateur :
+	- problème avec edit.yaml de gerebd qui comment par tab (sur modifier)
+	- vérifier que bouton modifier apparait sur bd seulement si possesseur de la bd
+	- Corriger affichage caractères accentués sur commentaires de BD
+	- si possesseur de BD, alors mettre bouton modification sur fiche bd en consultation
+
+- mettre commentaire edit in place sur écran d'accueil :
+	- remplacer le editinplace par un textarea et form remote
+
+- mettre en place la saisie de commentaires et notes par les troqueurs sur les bd :
+	- afficher sur la page d'accueil les bd dans l'ordre décroissant du nombre de commentaires, en affichant la note (étoiles) et le dernier auteur
+	- amélorier l'affichage de la bd avec les commentaires
+	- ajouter affichage note moyenne globale pour la BD (fonction SQL ? ou propel ?)
+	- ajouter la saisie de la note par chaque troqueur avec le commentaire
+	- ajouter le nom de l'auteur du commentaire et la date
+	- afficher la liste des commentaires dnas l'ordre décroissant de timestamp de création
+	- Gérer l'actualisation de la liste de commentaires avec celui saisi
+	- afficher la liste des commentaires à droites des photos
+	- diminuer la taille des photos affichées.
+	- gérer correctement l'affichage en cas de delete (là toute la page disparaît) :
+		- il faudrait que le add ajoute des div propres à chaque commentaire et que le delete supprime ce div !!!!
+	- faire fonctionner le delete en remote (voir exemple)
+	- Ajouter saisie de commentaires par les troqueurs sur la consultation de BD
+	- affichage des commentaires 
+
+- limiter la taille des images chargées à la création de BD :
+	- ajouter handleErrorAddCommentaire à la place de show !!
+	- vérifier que ls handle error existent sur les saisies des autres pages de bd avec photo !
+
+
+
+==========================> Déploiement 15/09/2014
+
+- Prochain déploiement :
+	- exécuter trocabd_0.13.sql
+	- Mettre Null if default les colonnes de ALBUM, EDITEUR, SERIE, AUTEUR sauf id
+	- Renommer en  depotlegal et dateparu, isbn, issn, nbrepage dans ALBUM
+	- Déployer objets de base de données : album, serie, éditeur, auteur (car schémà modifié et objet regénéré)
+
+
+- Remettre en route la saisie de BD par les troqueurs :
+	- TESTER TOUT CA !!! 
+		- tous les cas de création, modification, consultation
+		- cas de même auteur pour coloriste, dessinateur et scénariste
+
+	- Ajouter le credential : catalogue
+		
+	- Saisie de BD
+		- les photos disparaissent après plusieurs modifier
+		- ajouter lien ma vitrine sur chaque menu contextuel de gestion bd
+		- Voir affichage des caractères accentués sur détail (résumé, commentaires) BD et autres
+		- Ajouter saisie coloriste, scénariste, dessinateur
+		- voir le critère de recherche qui reste à sort quelques fois.... : après passage par "ma vitrine"
+		- vérifier gestion des photos
+		- revoir saisie et affichage des dates
+		- revoir affichage en modif des dates, série, genre, et bien sûr  coloriste, scénariste, dessinateur
+		- Revoir dénomination des photos téléchargées et vérifier leur affichage
+		- Ajouter bouton modifier sur "ma vitrine" sur les BD que je gère
+		- Sur détail de BD (en consultation ou modif) si propriétaire de la série, prévoir bouton modifier série
+		- Sur détail de BD (en consultation ou modif) si propriétaire de l'auteur, prévoir bouton modifier auteur
+		- Sur détail de BD (en consultation ou modif) si propriétaire de l'éditeur prévoir bouton modifier éditeur
+	- Saisie de Auteur
+	- Saisie de éditeur
+	- Saisie de série :
+		- voir affichage des caractères accentués
+		- Revoir dénomination des photos téléchargées et vérifier leur affichage
+	
+
+
+
+===========================
+- Mettre au point principe pour automatiser l'initialisation des lignes sans lon ni lat : 
+	- http://universimmedia.pagesperso-orange.fr/geo/nievre.htm 
+	- avoir le module php_soap
+	* mettre le menu contexte "liste des troqueurs de prod" pour l'admin uniquement
+	- au déploiement penser à adapter les url dans le wsdl
+	- Vérifier avec un exemple à zéro en test
+	- développer le service de mise à jour
+	- développer la récupération des lon et lat dans google map et l'affichage à l'écran
+	- la liste des troqueurs de prod ne fonctionne plus : p-e que ça vient du NULL : NON pb de caractères accentués -> encode/decode
+	- voir pourquoi les lon et lat nouveaux sont différents des anciens : e ntout cas identiques à ceux de l'url de la nièvre 
+	- voir pourquoi les lon et lat plantent quand récupération sur tous les troqueurs (pas seulement ceux nuls) : pb d'accent qui n'arrive que par la fonction de lecture du flux XML
+	- Si pb persiste avec accès php alors mettre accès dans javascript : voir http://stackoverflow.com/questions/6766222/google-maps-v3-api-over-query-limit-but-just-1-request?rq=1
+	- changer le principe et calculer 1 par 1 au clic sur un bouton : ko
+	- https://developers.google.com/maps/documentation/geocoding/
+	- poser question sur site plugin symfony
+	- Déployer le service de consultation : adapter les url dans le wsdl de prod
+	- Passer le critère de tri au webservice 
+	- Mettre menu contextuel pour n'afficher que ceux à zéros
+	- Gérer les pb de caractères spéciaux
+	- brancher sur template de liste
+	- changer name par nom :wsdl
+	- ajouter cp, ville , lon et lat dans le wsdl et la méthode
+	- Adapter le wsdl et la méthode getListUsers pour récupérer une liste structurée (avec login, nom, cp, ville, lon , lat)
+	- FAIRE template listeTroqueursSuccess.php 
+	- Ecran vide : remplacer "localhost" par "127.0.0.1" 
+	- Essayer de créer une méthode de récupération des utilisateurs : wsdl, autre méthode
+	- Faire essai webservice helloword sur www.trocabd.com
+
+
+
+
+http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&address=69360+Solaize
+
+
+==========================> Déploiement 02/01/2014
+- corriger : lien sur image depuis accueil ne marche que sur photos de la 1ère ligne :pbm de chargement : id série = 0
+- corriger le nom de la fenêtre (symfony project)
+- vérifier dernier troqueur inscrit à vide sur prod....
+
+
+==========================> Déploiement
+
+- pb  sur liste des trocs : en prod : vérifier sur mon poste : ok : il manquait la classe process 
+- sur carte de accueil troqueur : afficher tous les troqueurs comme sur accueil visiteur
+
+
+==========================> Déploiement
+
+- si plus de pbm pendant quelques jours :
+	- unfreeze
+	- install plugin map sur mon poste
+	- activer carte sur visite uniquement
+	- déployer
+	- voir pendant quelques jours
+	- redéployer plugins sfguard pour les messages de mauvaise connexion
+
+
+
+
+- Déployer 
+- Sauvegarder la version quand ok
+- Tester les fonctionnalités : recherche bD, mise en vitrine, communauté, troc...
+ 	- Problème avec les id du user : ma vitrine :ok ajout du setAttribute id sur sf_user (moche mais simple)
+	- plantage sur mes coordonnées : idem pbm d'id
+	- Plantage sur mes communautés : idem pbm d'id
+	- plantage sur affichage de mes trocs
+	- reste modification et finalisation de troc à tester : 
+		- manque nom du troqueur en cours sur modification de troc
+- Plantage à création de compte : Fatal error: Call to a member function getUsername() on a non-object in C:\trocabd\plugins\sfGuardPlugin\lib\user\sfGuardSecurityUser.class.php on line 152
+- revoir message d'erreur en cas de mauvais mot de passe
+
+
+================================= installer 0.8
+
+- mettre à jour dernière connexion au login : personnaliser l'action sfguardAuth pour maj dernièreconnexion : dupliquer !!!!
+
+		
+============================================ Installer 0.7
+- puis déployer à nouveau : - Ordre SQL : trocabd_0.7.sql
+
+
+- le login ne marche plus à nouveau !!!! (elle marchait le 1er Mai au soir et ne marche plus le 2 Mai au soir !!!
+	- enlever le plugins gmap :	
+		- faire uninstall
+		- commenter les lignes le référençant
+		- refaire freeze 
+		- vider les répertoires lib/ data/ et sf/ sur serveur
+		- déployer
+		- ça ne marche pas !!!!!
+		- sauvegarder mon projet
+		- repartir sur un exemple de base
+		- et faire fonctionner l'authentification : ok le 12 Mai !!!!
+		- attendre quelques jours si ok (tester sur www.trocabd.com/accueil)
+		- revoir aspect visuel de connection : comment intégrer au component : (création component dans sfguardplugin)
+		- voir comment faire pour que le user soit l'utilisateur (pour que les troqueurs puissent s'authentifier)
+			- faire ordre sql d'ajout de id sfguarduser dans utilisateur et initalise group et permission avec troqueur :  trocabd_0.7.sql
+			- vérifier que mes méthodes utilisées dans update existent dans sfgarduser 
+			- gérer message create absent à l'afffichage du formulaire
+			- gérer conrôle doublons sur clés dans sfuserguard : plus de réponse serveur après création méthode validateUpdate !!!
+			- modifier gereutilisateur pour delete
+		- voir lien "forgot your password"
+		- voir libellé du bouton signin
+		- faire méthode de reprise pour admin qui copie le contenu de utilisateur vers sfguard user
+		- voir affichage message "bienvenue xxx" => dans ancien j'initialisais un attribut sur sf_user
+
+
+============================================ Installer 0.6
+
+- Ordre SQL : trocabd_0.6.sql
+		- Installer sfguardplugin :
+			- stop à Manage your users, permissions and groups
+			- affichage de la page de login mais admin non connu : il fallait mettre format sha1 pour que le mdp soit crypté en base
+			- remettre la connexion dans le pavé initial
+			- déployer la version actuelle avec sfguardplugin
+			
+
+
+	- suprression plugin simplecms
+	- suppression référence au plugins dans setting
+	- ça marche toujorus pas !!!
+	- désinstall des plugins sfPropelAlternativeSchemaPlugin, sfSimpleCMSPlugin, sf...
+	- enlever appel sfsimplecms dans layout , visite, troqueur
+	- vérifier fichier config sur mon poste et adapter si plugins enlevés
+	- freeze
+	- test sur mon poste : accès gmap, login déconnexion
+	- vidage des répertoires freeze sur le serveur
+	- redéploiement sur serveur : 
+		- fichiers qui ont bougé sur mon poste ce 4/05
+		- supprimer fichiers supprimés
+	- finir de purger les plugins inutiles dans plugins/ et web/
+	- ET ça marche toujours pas !!!
+
+- sur les map recherche BD  : mettre toujours tous les troqueurs avec ou sans bd 
+
+- sur l'accueil mettre les troqueurs même sans BD
+
+- Le login ne fonctionne plus : essai avec GCAD :
+   - Si réponse ovh sans solution alors :
+	- Si ancienne version ok : 
+		- redéployer : petit à petit et essayer connexion à chaque fois : 
+			- pbm car tjrs même lien sur marker : 4ème paramètre sur new marker et new mapinfo
+			- sans cms avec autres répertoires modifiés
+			- sans cms avec visite avec nouvelle map) : 
+				- erreur 500 quand layout avec include map => après avoir mis des logs (modif logging.yml) je vois que c'est la clé google qui n'était pas définie
+			- juste avec data , lib et sf 
+		- refaire unfreeze
+		- refaire freeze
+	- Restaurer ancienne version du site et vérifier que OK
+   - Faire freeze : ko
+   - voir les extensions utiles pour les plugins installés
+   - voir les droits sur répertoires :voir consignes de mise en prod d'un projet symfony 
+   - voir pourquoi en dev j'ai content (105 o) au lieu de (104 o) en prod
+   - voir lignes en plus dans log de prod : comment changer les valeurs de magic_quote_gpc et registre_globals (à priori ça ne marche pas dans php.yml)
+Apr 18 22:34:15 symfony [info] {sfResponse} send content (104 o)
+Apr 18 22:34:16 symfony [warning] {sfPhpConfigHandler} php.ini "magic_quotes_gpc" key is better set to "false" (current value is "'1'" - php.ini location: "/usr/local/lib/php.ini")
+Apr 18 22:34:16 symfony [warning] {sfPhpConfigHandler} php.ini "register_globals" key is better set to "false" (current value is "'1'" - php.ini location: "/usr/local/lib/php.ini")
+
+
+- erreur 500 : pbm de niveau de sécurité à la racine du site (le ./ par ftp ) remettre à 705
+
+======================================================================08/04/2013 : V0.5 déployée
+- Déployer version 0.5 : odre SQL !!!!
+
+- Sur l'accueil faire choisi l''utilisateur entre 
+	- afficher la liste des BD  : images déroulantes comme le site de troc que j'ai vu
+	- voir composant javascript pour afficher liste des photos
+	- afficher la position géographique des troqueurs : voir 610 en retour de recherche de coordonnées : 
+		- Mettre en place API V3 sur geocodage d'adresse
+		- Mettre en place API V3 sur accueil troqueur, liste BD => il manquait la ligne de fin de page (include)
+		- Initialiser les valeurs dans la base de données : trouver URL qui permet de les récupérer hors applicatif :
+		- le plugin marche avec l'exemple : maintenant le mettre en musique avec l'application !
+		- Google map v2 plus maintenu : utiliser V3 => voir https://developers.google.com/maps/documentation/javascript/tutorial?hl=fr
+		- voir aussi exemple Google Maps JavaScript API v3 Example  Map Simple dans C:\Téléchargements
+		=> voir le plugin symfony sfEasyGMapPlugin : http://www.petitstrucs.fr/2011/09/integrer-le-plugin-sfeasygmapplugin-sur-un-projet-symfony-1-4/
+
+- Faire page : comment ça marche qui contient les liens
+
+- Pour le détail du troc afficher : colonnes source et cibles plutôt que moi et lui (pour l'affichage quand non connecté)
+   car le détail utilise le sfuser-> getLogin !!!
+
+- Voir si possible de saisir ou modifier un compte en effaçant tous les champs : et l'interdire : pas possible normalement...
+
+- Faire script d'insertion des tables SQL du CMS pour déploiement : Update_trocabd_0.5.sql
+
+- intégrer un CMS :
+	- Voir comment placer des habilitations pour que tout le monde ne puisse pas modifier sur le web
+	- adapter affichage news sur accueil troqueur
+	- voir comment utiliser le template du site en modification ou view (app.sample ?)
+	- paramétrage accès tiny_mce : enlever les crochets dans settings !!!
+	- Ajouter les news sur la page d'accueil
+	- mettre lien vers sfSimpleCMS dans page de détail
+	- voir utilisation et affichage de caractères accentués (copier le contenu de app.sample dans app de trocabd)
+	- voir mise en page des news sur la page d'accueil
+	- Voir comment les habilitations sont gérées pour pouvoir modifier les pages créées (bouton edit) : ajouter ?query=true à la fin de l'URL
+	- Intégrer une page dans la page d'accueil
+	- modifier chemin de fer pour SfSimpleCMSAdmin 
+	- start http://myproject/frontend_dev.php/sfSimpleCMSAdmin
+	- charger mes données avec sauvegarde
+	- symfony propel-load-data frontend plugins\sfSimpleCMSPlugin\data\fixtures
+	- in myproject/apps/frontend/config/settings.yml
+	all:
+	  .settings:
+	    enabled_modules:        [sfSimpleCMS, sfSimpleCMSAdmin](default,)
+	- symfony cc
+	- symfony propel-build-all
+	- http://www.symfony-project.org/plugins/sfPropelActAsNestedSetBehaviorPlugin
+	- http://www.symfony-project.org/plugins/sfSimpleCMSPlugin
+
+
+============================================================ livré fin 2012
+
+- Mettre un menu sur la page d'accueil : 
+	- recherche de BD; 
+	- carte des troqueurs (avec ou sans bd); 
+	- liste des trocs en cours
+
+
+
+============================================================ livré 05/11/2012
+
+
+- BUG : sur écran de troc: le contenu de sa vitrine = celui de ma vitrine 
+- BUG : voir liste des bd de trocatout : 9 dans la vitrine !!! => distinct !!!!
+
+
+- Revoir écrans de trocs : 
+	- Modification
+	- Visualisation
+	- Faire marcher la pagination : pbm avec utilid mal initialisé dans listSuccess.php :  A TESTER
+	- Améliorer la page existante : apparence, taille :supprimer les traits de cellules
+
+
+
+	- mettre en forme : afficher par défaut les accordeon avec les images, et le troc au mileu hors accordeon;
+	- afficher 1 accordeon à droite et 1 à gauche avec le troc au milieu invariant
+	- Essayer de faire marcher la mise à jour 
+
+
+============================================================ livré 13/10/2012
+
+- Revoir affichage des notes sur liste de troc
+- Afficher une seule note sous forme graphique sur la liste des trocs
+
+- Améliorer écran de notation : slider
+<html>
+<head>
+<title>Sliders Example</title>
+<script type="text/javascript" 
+        src="/javascript/prototype.js"></script>
+<script type="text/javascript"  src="/javascript/scriptaculous.js?load=slider"></script>
+
+<script type="text/javascript">
+   window.onload = function() {
+       new Control.Slider('handle1' , 'track1',
+      {
+           range: $R(0,5),
+           values: [0,1,2,3,4,5],
+           sliderValue: 1,
+           onChange: function(v){
+               $('changed').innerHTML = 'Changed Value : '+v;
+           },
+           onSlide: function(v) {
+               $('sliding').innerHTML = 'Sliding Value: '+v;
+               $('changed').innerHTML = 'Changed Value : lacher la souris';
+               if (v == 0) {
+                   $('handle1').style.backgroundColor = "#FFFFFF";
+               }
+               if (v == 1) {
+                   $('handle1').style.backgroundColor = "#FFFF00";
+               }
+               if (v == 2) {
+                   $('handle1').style.backgroundColor = "#FF00FF";
+               }
+               if (v == 3) {
+                   $('handle1').style.backgroundColor = "#00FFFF";
+               }
+               if (v == 4) {
+                   $('handle1').style.backgroundColor = "#F0F0F0";
+               }
+               if (v == 5) {
+                   $('handle1').style.backgroundColor = "#0F0F0F";
+               }
+          }
+       } );
+}
+</script>
+
+
+
+<style type="text/css">
+h1{ font-size: 1.5em; }
+.track {
+   background-color: #aaa;
+   position: relative;
+   height: 0.5em; width: 10em;
+   cursor: pointer; z-index: 0;
+}
+.handle {
+   background-color: red;
+   position: absolute;
+   height: 1em; width: 0.25em; top: -0.25em;
+   cursor: move; z-index: 2;
+}
+
+</style>
+</head>
+<body>
+
+<h1>Simple sliders</h1>
+
+<div id="track1" class="track" style="width: 20em;" >
+   <div id="handle1" class="handle" style="width: 0.5em;" ></div>
+</div>
+
+<p id="sliding" ></p>
+<p id="changed" color="red"></p>
+
+
+</body>
+</html>
+
+
+- faire en sorte que ceux sans coordonnées ne fassent pas planter l'affichage de la carte
+- Correction pb de recherche bd qui est vide sur page suivante : tester aussi la valeur '+'
+
+
+
+=========================================================== Fin prototype 0.4
+
+- bug sur aide inaccessible sur acceuil (déjà vu)
+- carte sans marques de troqueur :
+- Stocker les coordonnées des troqueurs dans la base : les récupérer à chaque création ou modification d'adresse (code postal, ville)
+(et donc tant que ça ne marche pas : les récupérer à la main par google)Réponse OVH : La seule solution serait de migrer sur une offre ou vous avez une IP rien qu'à vous, par exemple Vps ou serveur Dédié.
+
+- Modif sgbd
+- Modif affichage des cartes pour récup lon et lat dans sgbd
+- modif schéma et modèle objet
+- la carte ne s'affiche pas : car coordonnées lon et lat à zéro
+- Vérif création et modif de compte avec init à zéro des lon et lat 
+- Livrer les modifications et initialiser les coordonnées 
+
+
+- voir état du serveur après livraison 
+pb sur accès google dna classe php 'geoGetCoords : $_result_parts[0]<>200 
+                    $_result_parts = explode(',',$_result);
+                    if($_result_parts[0] != 200)
+file_get_contents($url);
+$_result=620,0,0,0
+$_result_parts[0]=620
+
+et pourtant si accès en saisissant l'url dans firefox : 
+http://maps.google.com/maps/geo?&q=01000%20Bourg-en-Bresse&output=csv&key=AIzaSyCeDejCLbn6UTrrqyTSYXup3mNcrMApU0I 
+donne 200,4,46.2027900,5.2192460 = ok !!!!!! 
+x Désactiver le cache ?
+- Mettre un timer dans la boucle ?
+Regardless of what geocoder output you specify, your requests will be subject to the geocoder's maximum query rate and 15,000 queries per day based on your IP. Additionally, a status code of 620 will be returned by the geocoder if you query it faster than it can handle. (A full list of status codes is available here). To ensure you don't send queries too rapidly to the geocoder, you can specify a delay between each geocode request. We can increase this delay each time we receive a 620 status, and use a while loop to ensure we've successfully geocoded an address before iterating to the next one. 
+// Initialize delay in geocode speed
+$delay = 0;
+$base_url = "http://" . MAPS_HOST . "/maps/geo?output=xml" . "&key=" . KEY;
+
+// Iterate through the rows, geocoding each address
+while ($row = @mysql_fetch_assoc($result)) {
+  $geocode_pending = true;
+
+  while ($geocode_pending) {
+    $address = $row["address"];
+    $id = $row["id"];
+    $request_url = $base_url . "&q=" . urlencode($address);
+    $xml = simplexml_load_file($request_url) or die("url not loading");
+
+    $status = $xml->Response->Status->code;
+    if (strcmp($status, "200") == 0) {
+      // Successful geocode
+      $geocode_pending = false;
+      $coordinates = $xml->Response->Placemark->Point->coordinates;
+      $coordinatesSplit = split(",", $coordinates);
+      // Format: Longitude, Latitude, Altitude
+      $lat = $coordinatesSplit[1];
+      $lng = $coordinatesSplit[0];
+
+      $query = sprintf("UPDATE markers " .
+             " SET lat = '%s', lng = '%s' " .
+             " WHERE id = '%s' LIMIT 1;",
+             mysql_real_escape_string($lat),
+             mysql_real_escape_string($lng),
+             mysql_real_escape_string($id));
+      $update_result = mysql_query($query);
+      if (!$update_result) {
+        die("Invalid query: " . mysql_error());
+      }
+    } else if (strcmp($status, "620") == 0) {
+      // sent geocodes too fast
+      $delay += 100000;
+    } else {
+      // failure to geocode
+      $geocode_pending = false;
+      echo "Address " . $address . " failed to geocoded. ";
+      echo "Received status " . $status . "
+\n";
+    }
+    usleep($delay);
+  }
+}
+
+=========================================================== Fin prototype 0.3
+
+- Relivraison : gereBD, accueil, layout
+
+- Donner template à Guillaume
+
+
+
+- Permettre recherche géograhique par carte :
+	- Recherche BD avec carte affichant le positionnement des BD
+		- si troqueur alors 20km par défaut autour du troqueur
+		- si visiteur alors toutes
+		- Les BD ne sont pas toutes affichées
+		- Afficher le login du troqueur dans le détail (quand carte sur écran troqueur)
+	- Messages d'erreur dans IE objet innatendu : désactivation sidebar
+	- Messages d'erreur dans IE cannot redeclare map : se produit quand connection ou déconnexion : utilisation require_once à la place de require
+	- pbm timeout sur recherche : timeout depuis chein de fer mais pas depuis menu recherche : teste rechercher à blanc
+	- le paramètre rechercher est égal à 'rechercher" dans le chemin de  fer sur recherche BD à partir du détail de BD (vu après détail BD accédé depuis carte... à vérifier si détail BD depuis voir sur liste BD)
+	- Messages d'erreur dans Mozilla lors de 1er affichage
+	- Optimiser : 
+		- Voir nécessité de faire printjs et print head à chaque fois	
+	- Lien entre carte et vitrine troqueur
+	- Faire afficher carte à gauche sous menu de connection
+	- Affichage sur CP et ville
+	- Accueil visiteur avec carte globale de tous les troqueurs
+	- Accueil troqueur avec carte centrée sur cp du troqueur et rayon de 20km
+
+
+=========================================================== Fin prototype 0.2
+- Corriger pb si plusieur spages de troqueurs à inviter
+
+- Liver modif BDD ET code (gereBd et GererCommunaute et le modèle objet)
+
+- Bloquer consultation/maj des coordonnées utilisateur si pas celui connecté
+
+- faire voir liste des BD de la communauté
+- faire ordre SQL de modification
+- revoir tri sur titre sur serie dans "sa vitrine" qui ne marche pas (pi il marche sur ma vitrine)
+- Ajouter lien liste des BD plus explicite sur accueil
+- gestion de communautés :
+	- Fonction liste
+	- Création du modèle objet
+	- Création des autres fonctions de mise à jour de communautés :
+		- Consultation : passer utilid en paramètre sur Ok ou retour
+		- Création
+		- Modification
+		- Suppression : impossible si > 1 membres
+		- Ajout/ retrait membre / invité
+		- bt_accepter 
+		- bt_refuser
+		- Supprimer recherche communauté
+		- revoir chemin lien communauté  pointe sur liste (et pas recherche)
+		- nom de la communauté en cours sur liste des troqueurs
+		- dans liste des membres indiquer ceux qui sont seulement invités
+	- tri sur nom du créateur ne marche pas (voir tri sur titre de série)
+	- Ajout des action du processus : invitation/ acceptation/ .../...
+	- Revoir bouton ajouterCommunaute
+
+======================================================== Prototype de base
+
+- Proposer test à l'un de ceux intéressés
+- Tester :
+	- L'annulation de modification de compte plante !!!
+	- Création de compte
+	- un troc en simulant 2 troqueurs
+
+- Installer site
+
+* charger BDD avec données du logiciel :
+     - ne pas écraser le contenu de la base : filter les données déjà existantes 
+     * trouver comment filtrer chaque donnée l'une après l'autre : voir avec séries : car de photo1 pas toujours renseigné mais quelques fois renseigné et passe par rejet à cause de commentaire
+     - enlever le left sur zone string car troncage automatique et sans plantage
+
+- Remplir kisskissbankbank
+
+
+
+============================================================================ 0.1
+- Acheter logiciel BD : bdcollector et bdgest (ok)
+- Mettre en place aide !!!! 
+	- demoInitVitrine => Il manque le résultat après ajout
+	- demonInitComtpe = ok
+	- finir et revoir le découpage
+- Ajouter recherche bd appartenant à un troqueur : 
+	- faire passer paramètre rechercher dans menu contextuel
+	- faire passer flitrepossede dans  les menus qui enchainent vers la recherche
+	- Mettre le filtre dans la queête pour que le pager soit juste (et enlever du template)
+	- Ajouter menu contextuel toutes BD
+- Après ajout dans vitrine, rester sur même page
+- après création du troqueur : pb d'initialisation des paramètres users :
+	- pb lien maVitrine avec paramètre Talbum non initialisé
+	- pb show mes coordonnées pas connu
+        - ma vitrine m'envoie sur la vitrine du troqueuer précédemment consulté
+- Quand troc : libellé incorrecte sur album ajouté : Gérer les caractères " et ' dans le libellé :
+	- ça s'affiche correctement quand on vient de la liste des trocs 
+	- mais ça merde quand on clique sur ajouter depuis la liste des bd :
+		- str_replace placé dans action mais ça ne change rien
+		- virer les caractères " et ' au chargement !
+- bouton suppression de troc : revoir fond blanc 
+- corriger entête écran "mot de passe oublié"
+- Donner possibilité de modifier ses coordonnées personnelles
+- initialiser FAQ et Forum
+- Installer Faq  : 404 après clique sur gor
+- Installer Ecrivez-nous
+- Acceper les caractères de ponctuation dans les paramètres (cas du titre faux dans l'offre si " ou ') : modification dans chargement
+- mettre un minimum à la taille des carrés de fond sur menu contextuel et détail écran
+- Mettre  la bonne taille aux images dans les listes de troc comme dans la liste des BD
+- Ne pas proposer ma vitrine ou mes trocs dans menu contextuel quand non connecté
+- Revoir positionnement champs d'identification sur liste BD quand non connecté
+- Enlever ajouter BD dans "ma vitrine" 
+- dans recherche de BD, agrandir "troqueur possédant cette BD" et le placer sous le titre et la série
+- Installer les images des séries, auteurs, et éditeurs
+- mettre "ajouter BD" pour trocadmin uniquement
+
+- Installer Forum : 
+	- brancher sur lien 
+	- brancher administration forum
+	- mettre en place création de myUser class
+
+Général
+- Conserver zone recherche d'un écran à l'autre 
+- zone recherche avec un blanc dedans et qui s'initialise à "sort" quand lien depuis chemin
+- Revoir contenu de page d'accueil 
+- ajouter login de l'utilisateur connecté en haut
+
+Menu contextuel :
+- accès à mes trocs et ma vitrine depuis recherche comme pour accueil troqueur
+
+DetailTroc
+- gérer l'impact des actions du troc sur la possession des BD : plantage dans mise à jour à partir parcours tableau sonOffre
+- SGBD modifié : 
+	- tester le troc : les ajouts, suppressions,les étapes,  ../...
+	- quand je retire de l'offre, la bd apparaît 2 fois dans ma vitrine (idem sa vitrine) (même après suppression) :lié à pas de suppression de offre et utilisateursoruce et cible
+	- pb dans gestion troc en modification : ma vitrine = sa vitrine 
+	- plantage sur consultation BD depuis ma ou sa vitrine du troc
+	- pb dans retirer de offre car offset ligne 160
+	- action "retirer" ne disparaît pas de vitrine source et cible pour les bd concernées par un troc
+	- Plantage sur affichage liste de troc
+
+- Revoir processus : chaque action à valider :
+	- création : Initiateur = ok ; cible = ok
+	- Modifier : 
+	- Proposer : 
+	- Abandonner :
+	- Noter : quand ne peut on plus noter ?
+	- Libellé AEXPEDIER quand attente réception
+- sa Vitrine est vide après clique sur > ou >> ou n°page : utilid n'était pas renseigné donc requête hisbuildpager rendait vide
+- Revoir notation : Pb après erreur : bouton valdier sans action associée : ok le table et body étaient avant le form
+
+
+
+Liste troc :
+- plantage si tri sur colonne nom
+
+
+Saisie Auteur
+- revoir format des données
+- Ecran de saisie
+- faire saisie des rôles : voir maj scenariste puis ajouter dessinateur et coloriste
+- pb grid vide : probable cause par format date avec donnée en 1900... changé à format BU_DATE
+- pb maj date naissance en bdd qui ne se fait pas
+
+Saisie Editeur
+- revoir format des données
+- Ecran de saisie
+- Mettre en place gestion valeur pour combo Pays (car avec libellé l'update ne marche pas) : le setValue ne marche pas... c'était le nom de hiddeName qui n'allait pas
+- Pb d'affichage initial du champ combo... le setValue ne se traduit pas en libelle --> essayer de mettre un lsistener load sur combo pour afficher la form... le pb vien sans doute du fait que le store n'est pas chargé
+- Gérer disparition onglet et formpanel (voir méthode finit de functionOk)
+- pb de gestion del'id  après maj : on sélectionne unautre et c'est toujours le même qui est affiché
+- Pb récup des données par fromArray : Pb demajuscule sur nom adresse1 et adresse2 : modifier structure et regénerer
+- Pb de gestion del'id : ce n'est pas le bon détail qui est affiché et pas le bon enreg mis à jour : Id caché dans columnmodel; affichage formpanel avec données sélectionnées
+
+DétailSerie (comme detail editeur) --> C'est éditeur ou auteur ?
+- revoir format des données
+- affichage image (le chemin s'affiche) - comme recherche d'ailleurs
+- Affichage zone de texte (le code html s'affiche)
+- Chemin de fer : "recherche serie"
+- faire afficher rechercher série dans un onglet : ExtJS
+- input file pour les images : il faudrait uploader les images !!!
+
+Saisie série :
+- saisie photo + site web
+- affichage des photos
+- affichage des onglets
+- mettre en place les contrôles
+
+Recherche BD
+- Agrandir zone pour "affichage des résultats xx à xx" car décalage sur dernier écran
+
+Ma vitrine - liste BD
+- image ne s'affiche pas
+- supprimer lien modifier BD
+
+
+Detail BD
+- Photos ne s'affichent pas dans consultation BD
+- brancher de liste BD sur formulaire de création ou mise à jour selon le cas...
+- revoir format des données
+- afficher scenariste, dessinateur, coloriste (comme dans saisie)
+- Metter au point gestion combo en modif de BD
+- Gestion combo pour editeur
+- Gestion combo(s) pour lien auteur avec rôles :
+	- scenariste ok; ajouter pour dessinateur et coloriste;
+	- pb avec filter... coloriste vide.... et après sélection filtre supprimé : lastquery='' + limit=999 
+	- traiter mise à jour de la base
+
+- idem pour genre
+- idem pour serie
+- gestion format date sur formulaire
+- bouton retour pour revenir à l'écran précédent : liste des BD, ou détail de troc
+- Mettre à jour champs et écran de gestion de BD avec nouvelles tables créées avec BdCollector :
+	- album remplace bd + afficher champs adequats 
+	- modif process et template edit - Album - serie - editeur - genre - rechercheSerie - RechercheEditeur - Recherche Genre
+	- création mécanisme mise à jour / validation : -album - series - editeur - auteur : 1 troqueur peut ajouter une fiche et modifier une fiche si il l'a rédigé et si elle n'est pas encore validée
+	- manque lien pour voir auteur
+	- ajouter lien pour editeur dans liste bd
+	- modif template show - Album - serie - editeur - auteur 
+	- Modif listes BD dans troc (vitrine et offre)
+- récupération des données liées ne marche pas : exemple getSerie sur Album : enlever définition de la zone dans le schema avant de generer le modèle
+- Prévoir process d'ajout de BD si absente du catalogue
+
+DetailTroc
+- Soigner apparence consultation du troc
+- Plantage si retrait du troc  de la BD d'origine lors du 1er affichage du troc
+- quand retrait BD puis enregistrement : elles restent dans le troc !!!
+- Ajouter écran consultation de troc 
+- Ajouter lien vers consultation de troc depuis liste des trocs sur toutes les transitions !!!
+- gérer modifier, supprimer, troc : l'affichage du troc est à mettre en place
+- modifier ordre sql de lecture de la liste des trocs
+- mettre en place les actions possibles sur la liste des trocs en fonction de l'état du troc :
+- gérer les actions selon le troqueur connecté (source ou cible)
+- coder les actions relatives à ces actions utilsateurs :
+	- Expédier : 
+	- Noter : pb : 
+		- pas d'affichage zone edit in place et chainage immédiat à action noter
+		- proposer liste de notes : Impossible avec cette version de symfony... prendre version plus récente
+		- pourquoi le contenu du tableau s'affiche dans la zone div de note ?
+- liste de troc sans option sort au 1er affichage
+- quand retrait de vitrine : traiter impact sur trocs en cours : pas de retrait
+- revoir boutons d'action à aligner sur bas de détail de troc
+- pb c'est toujours le m^me troc qui est affiché... 26 et 27 ont peut-être été écrasés !!
+- rappeler les noms de troqueurs sur le détail du troc
+- liste des Bd : ne pas mettre le nom de celui qui est connecté
+- Finaliser les données
+- Intégrer le retrait de troc
+- faire passer le titre dans les paramètres de l'action plutôt que de la relire dans la base de donnée dans l'action
+- Ajouter la gestion de l'autre liste
+- Mettre au point le ordres sql my pager et hispager
+- Enregistrer le troc : pb : les offres ne se'neregistrent pas, seul le troc est créé
+- comment stocker les éléments placés dans mon panier : Utiliser User !!!
+- Afficher les listes de BD : voir ou mettre option id sur instruction html
+- voir composant Ajax pour afficher une liste avec bouton de navigation : pb avec nom de template non trouve en sortie d'action remote link to car existe en tant que partial
+- On ne repasse pas dans Add après chaque drop : en fait si comme le montre la récupération de l'id... en revanche la variable d'objet est réiniitalisé à chaque fois... sans doute objet instancié... passer  par variable de classe... variable de classe ne marche pas car propre à un page... passer par variable de session ou paramètre
+- Mettre en place gestion dynamique -> voir mode d'emploi de szcript aculous dans Symfony
+- pb car addSuccess.php not exist
+
+Général
+- revoir l'enchaînement des écrans !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	- sur recherche de BD : mettre en place lien  vers troc sur chaque possesseur de BD
+	- Menu contextuel de détail BD devrait rerourner sur "recherche" et pas sur liste
+	- Enlever bouton "ajouter troc" sur "mes trocs"
+	- ajouter lien "j'ai" sur liste des BD après recherche
+	- ajouter bouton "retirer" dans vitrine
+	- sur ajout de bd chemin de fer devrait revenir sur recherche et non sur liste
+	- bouton "ajouter vitrine"
+	- bouton "retirer vitrine"
+	- si déconnecté, le user reste chargé... donc actions retirer par exmple persistente sur recherche de BD
+	- Lien "ajouter BD" sur recherche BD (en état "non validé") 
+	
+- Mettre les bonnes données pour les BD : selon référentiel de BDNet ou BDCollector - revoir écran de données + données référentiels saisissables pour le cas où inexistantes
+- chargement depuis bdcollector : Continuer avec TALEND
+- Plantage au lancement quand login direct
+- Voir possibilité écran mode consultation ou modification ou création
+- En cas d'erreur, adresse vide, la barre de titre s'élargit et ne correspond plus aux arcs de cercle : utiliser kits graphiques
+- affichage avec null en valeur initiale
+
+
+listTroc
+- voir pourquoi clauses where pas toutes générées : TrocPeer::ID, OffrePeer::TROC_ID 
+- pb pour 2 jointures sur même table
+
+
+saVitrine
+- récupérer le paramètre de recherche dans le chemin de fer
+- voir pourquoi recherche = utilid (si retour après sa vitrine et que recherche vide) :c'est parce que paramètre recherche vide : solution par valeur par défaut  sur getparameter
+- voir pourqoi ligne X affichée et pas z si vitrine de pierrix26 demandée avec filtre recherche sur b : ok z est sur pierrix
+- adapter chainage sur les lignes du tableau (elles sont pour l'instant les mêmes que sur "Ma vitrine")
+- Afficher le login du troqueur dans le chemin de fer après "Vitrine de "
+
+
+RechercheBD
+- Afficher non pas la liste des BD mais plutôt la liste des BD possédées
+- Mettre en forme affichage bouton de recherche
+- créer bouton recherche générique avec recherche sur tout
+- bouton qui devient inactif (simple image) après réaffichage : bouton après </form> car </table> avant 
+- zone texte réinitialisée : nom du formulaire
+
+Ma Vitrine
+- Créer relation possède
+- si déconnexion : affichage écran d'erreur
+
+Menucontextuel
+- certaines options ne sont accessibles que si troqueur (exemple mon espace sur accueil) 
+
+gereutilisateur
+- être loggué après inscription
+- Ajout contrôles de saisie
+- Création avec donnéees à blanc
+- Faire saisir 2 fois le mot de passe, en crypté
+- contrôler unicité login
+- Absence menucontextuel gereUtilisateur/create
+- en fait, seule le message sur la 1ère donnée s'affiche
+- Les données se remettent à blanc quand erreur sur la page
+- sur ecran d'inscription, ne pas mettre "inscrivez-vous"
+- Remettre les contrôles dans update.yaml
+- Message : Mot de passe obligatoire (et pas "le 1er...)
+- si déconnexion sur consultation compte : plantage sur chemin de fer car pas d'action...
+- si déconnection sur consultation compte : l'utilisateur reste connecté
+
+gereoublie
+- Poser question pour retrouver mot de passe, quand mot de passe oublié
+
+
+
+Trocabd
+- Autorisations
+- Initialisation avec null : voir base de donnée (essayer sur schéma)
+- Validation des formulaires
+- Format bouton save
+- lien modifier à partir de liste
+- Affichage show centré !!!
+- Caractères accentués
+- ajouter qui plante : ajouter action Update qui est utilisée pour modifier et ajouter
+- Chemin de fer : dernière étape ne doit pas être un lien
+- chemin de fer : denirèe étape = modifier quand erreur sur ajout
+- Après modif ou ajout : message de confirmation sur show
+- Après maj réafficher liste dans l'ordre préalable
+- Gérer plusieurs pages sur liste; avec réaffichage depuis page en cours (voir ordre SQL pour lecture depuis n° enreg...)
+- uniformiser boutons abandonner, valider ou enregistrer : bulles comme "voir" - changer la couleur du contour
+- uniformiser titre de page (1 couleur en liste, 1 couleur en edit, 1 couleur en ajout, 1 couleur en consultation)
+- Faire les boutons gauche et droite des barres de titre
+

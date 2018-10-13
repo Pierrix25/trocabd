@@ -1,0 +1,12 @@
+fillin:
+  enabled: true
+  param: 
+    name: formUpdatenotetroc
+fields:
+  note:
+      sfNumberValidator:
+        nan_error: Rentrez la note
+        min: 0
+        min_error: La note doit être supérieure ou égale à zéro
+        max: 10
+        max_error: La note  doit être inférieure ou égale à 10

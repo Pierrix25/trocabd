@@ -1,0 +1,1360 @@
+<?php
+
+/**
+ * gereBD actions.
+ *
+ * @package    trocabd
+ * @subpackage gereBD
+ * @author     Your name here
+ * @version    SVN: $Id: actions.class.php 3335 2007-01-23 16:19:56Z fabien $
+ */
+class gereBDActions extends sfActions
+
+{
+
+public function executeIndex()
+  {
+    return $this->forward('accueil', 'visite');
+  //    return $this->forward('gereBD', $this->getFlash('listeOrigine'));
+  }
+
+  public function executeList()
+  {
+  // criteria pour compter  les offres
+//  	$this->c1 = new Criteria();
+//	$criterion1 = $this->c1->getNewCriterion(UtilisateursourcePeer::UTILISATEUR_ID, $this->getRequestParameter('utilid'));
+//	$criterion1->addor($this->c1->getNewCriterion(UtilisateurciblePeer::UTILISATEUR_ID, $this->getRequestParameter('utilid')));
+//	$this->c1->add($criterion1);
+	
+  	$this->initRechercherCriteria();
+  	$c = new Criteria();
+  	if ($this->getRequestParameter('sort'))
+  	{
+  		$c->addAscendingOrderByColumn($this->getRequestParameter('sort'));
+  	}
+    $pager = new sfPropelPager('Album', 5);
+    $pager->setCriteria($c);
+    $pager->setPage($this->getRequestParameter('page', 1));
+    $pager->init();
+    $this->pager = $pager;
+  	$this->setFlash('listeOrigine','list');
+    }
+    
+  public function initRechercherCriteria()
+  {
+  	$this->rechercher = ' ';
+  	if (($this->getRequestParameter('rechercher') <> '+') and ($this->getRequestParameter('rechercher') <> '') and ($this->getRequestParameter('rechercher') <> ' '))
+  	{
+  		$this->rechercher = $this->getRequestParameter('rechercher');
+  	} else {
+  		$this->rechercher = '+';
+  	}
+  
+  }
+
+  public function executeRecherche()
+  {
+  	$c = new Criteria();
+  	$cgeo = new Criteria();
+  	
+	$c->addJoin(AlbumPeer::SERIE_ID, SeriePeer::ID);
+  	if ($this->getRequestParameter('sort'))
+  	{
+  		$c->addAscendingOrderByColumn($this->getRequestParameter('sort'));
+  	}
+  	$this->initRechercherCriteria();
+
+  	if ($this->rechercher <> '+')
+  	{
+  		$criterion = $c->getNewCriterion(SeriePeer::NOM, '%'.$this->getRequestParameter('rechercher').'%', Criteria::LIKE);
+  		$criterion->addOr($c->getNewCriterion(AlbumPeer::TALBUM, '%'.$this->getRequestParameter('rechercher').'%', Criteria::LIKE));
+  		$c->add($criterion);
+  		$cgeo->add($criterion);
+  	}
+
+	$this->filtrePossede = ' ';
+  	if ($this->getRequestParameter('filtrePossede'))
+  	{
+		$this->filtrePossede = $this->getRequestParameter('filtrePossede');
+  		if ($this->getRequestParameter('filtrePossede') == 'O')
+  	  	{
+  	  		$c->addJoin(AlbumPeer::ID, PossedePeer::ALBUM_ID);
+  		}
+  	}
+  	
+  	if ($this->getRequestParameter('filtreCommunaute'))
+  	{
+		$this->filtreCommunaute = $this->getRequestParameter('filtreCommunaute');
+  		if ($this->getRequestParameter('filtreCommunaute') == 'O')
+  	  	{
+ 	  		$c->addJoin(PossedePeer::UTILISATEUR_ID, MembrePeer::UTILISATEUR_ID);
+  	  		$c->addJoin(MembrePeer::COMMUNAUTE_ID, CommunautePeer::ID);
+		 	$c->addAlias('T1', MembrePeer::TABLE_NAME);
+  	  		$c->addJoin(CommunautePeer::ID, MembrePeer::alias('T1',MembrePeer::COMMUNAUTE_ID));
+  	  		$c->add(MembrePeer::alias('T1',MembrePeer::UTILISATEUR_ID), $this->getUser()->getAttribute('id'));
+  	  	}
+  	}
+
+$cgeo->addJoin(UtilisateurPeer::ID, PossedePeer::UTILISATEUR_ID, Criteria::LEFT_JOIN);
+$cgeo->addJoin(PossedePeer::ALBUM_ID, AlbumPeer::ID, Criteria::LEFT_JOIN);
+$cgeo->addDescendingOrderByColumn(UtilisateurPeer::ID);
+
+$this->utilisateurs = UtilisateurPeer::doSelect($cgeo);
+
+ 	// nouvelle api google map avec plugins
+ $this->map = new GMap();
+
+
+    
+//(4) On ajoute les caractéristiques que l'on désire à notre carte.
+foreach ($this->utilisateurs as $utilisateur): 
+	$listAlbum = '';
+	foreach ($utilisateur->getPossedes() as $poss): 
+		$listAlbum = $listAlbum.'<a href="'.$this->getRequest()->getScriptName().'/gereBD/show?id='.$poss->getAlbumId().'&sort=Talbum&rechercher='.$this->rechercher.'">'.$poss->getAlbum()->getTAlbum().'</a><BR>';
+	endforeach; 
+	if ($utilisateur->getLon() <> 0 ) {
+		  $gMapInfoWindow = new GMapInfoWindow('<BR><a href="'.$this->getRequest()->getScriptName().'/gereBD/saVitrine?sort=Talbum&login='.$utilisateur->getLogin().'&utilid='.$utilisateur->getId().'&rechercher='.$this->rechercher.'">'.$utilisateur->getLogin().'</a> Dernière connexion le '.$utilisateur->getDerniereConnexion().'<BR>'.$listAlbum,array(), 'info_'.$utilisateur->getId());
+		  $gMapMarker = new GMapMarker($utilisateur->getLat(),$utilisateur->getLon(),array(), 'marker_'.$utilisateur->getId());
+		  $gMapMarker->addHtmlInfoWindow($gMapInfoWindow);
+		  $this->map->addMarker($gMapMarker);
+	}
+endforeach; 
+
+
+if ($this->getUser()->isAuthenticated())  
+{
+	$user = UtilisateurPeer::retrieveByPk($this->getUser()->getId());
+	$this->forward404Unless($user);
+	$this->map->setZoom(5);
+//	$this->map->centerAndZoomOnMarkers();
+	$this->map->setCenter($user->getLat(), $user->getLon());
+} else {
+//	$this->map->setZoom(20);
+	$this->map->centerAndZoomOnMarkers();
+	$this->map->setZoom(5);
+}
+// $this->map->disableDirections(); 
+// $this->map->disableSidebar(); 
+
+  	$pager = new sfPropelPager('Album', 5);
+    $pager->setCriteria($c);
+    $pager->setPage($this->getRequestParameter('page', 1));
+    $pager->init();
+    $this->pager = $pager;
+    $this->setFlash('listeOrigine','recherche');
+  }
+
+  public function executeSaVitrine()
+  {
+  	$this->setFlash('listeOrigine','saVitrine');
+    $this->uneVitrine();
+  }
+  
+  public function uneVitrine()
+  {
+
+  	$this->initRechercherCriteria();
+  
+  	$c = new Criteria();
+	$c->addJoin(AlbumPeer::SERIE_ID, SeriePeer::ID);
+  	if ($this->getRequestParameter('sort'))
+  	{
+  		$c->addAscendingOrderByColumn($this->getRequestParameter('sort'));
+  	}
+  	
+  	if ($this->getRequestParameter('utilid'))
+  	{
+		$c->addJoin(AlbumPeer::ID, PossedePeer::ALBUM_ID);
+	  	$c->add(PossedePeer::UTILISATEUR_ID, $this->getRequestParameter('utilid'));
+		
+	  	$c->addJoin(AlbumPeer::ID, OffresourcePeer::ALBUM_ID, Criteria::LEFT_JOIN);
+		$c->addJoin(OffresourcePeer::UTILISATEURSOURCE_ID, UtilisateursourcePeer::ID, Criteria::LEFT_JOIN);
+
+		$c->addJoin(AlbumPeer::ID, OffreciblePeer::ALBUM_ID, Criteria::LEFT_JOIN);
+		$c->addJoin(OffreciblePeer::UTILISATEURCIBLE_ID, UtilisateurciblePeer::ID, Criteria::LEFT_JOIN);
+
+		$c->setDistinct();
+  	}
+  	
+  	$pager = new sfPropelPager('Possede', 5);
+    $pager->setCriteria($c);
+    $pager->setPage($this->getRequestParameter('page', 1));
+    $pager->init();
+    $this->pager = $pager;
+    $this->setTemplate('list');
+  }
+  
+  
+  public function executeMaVitrine()
+  {
+  	$this->setFlash('listeOrigine','maVitrine');
+    $this->uneVitrine();
+  }
+  
+  public function executeShow()
+  {
+		$prototypeDir = sfConfig::get('sf_prototype_web_dir');
+		$this->getResponse()->addJavascript($prototypeDir.'/js/prototype.js');
+		$this->getResponse()->addJavascript($prototypeDir.'/js/scriptaculous.js');
+		$this->getResponse()->addJavascript($prototypeDir.'/js/slider.js');
+  	$this->initRechercherCriteria();
+  	$this->bd = AlbumPeer::retrieveByPk($this->getRequestParameter('id'));
+  	$this->forward404Unless($this->bd);
+  	$this->note =0;
+   }
+
+  public function executeShowSerie()
+  {
+    $this->serie = SeriePeer::retrieveByPk($this->getRequestParameter('id'));
+    $this->forward404Unless($this->serie);
+   }
+   
+  public function executeShowEditeur()
+  {
+    $this->editeur = EditeurPeer::retrieveByPk($this->getRequestParameter('id'));
+    $this->forward404Unless($this->editeur);
+   }
+   
+   public function executeShowGenre()
+  {
+    $this->genre = GenrePeer::retrieveByPk($this->getRequestParameter('id'));
+    $this->forward404Unless($this->genre);
+   }
+
+   
+   public function executeShowAuteur()
+  {
+    $this->auteur = AuteurPeer::retrieveByPk($this->getRequestParameter('id'));
+    $this->forward404Unless($this->auteur);
+   }
+   
+   public function executeCreate()
+  {
+  	$this->initRechercherCriteria();
+  	$this->bd = new Album();
+    $this->idSerie='';
+    $this->nomSerie='';
+    $this->idEditeur='';
+    $this->nomEditeur='';
+    $this->idGenre='';
+    $this->nomGenre='';
+  	$this->idScenariste='';
+  	$this->nomScenariste='';
+  	$this->idColoriste='';
+  	$this->nomColoriste='';
+  	$this->idDessinateur='';
+  	$this->nomDessinateur='';
+    $this->setFlash('actionOrigine','create');
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('messageOrigine',MESSAGE_FIN_CREATE_OK);
+    $this->setTemplate('edit');
+  }
+
+   public function executeCreateSerie()
+  {
+    $this->serie = new Serie();
+	$this->setFlash('actionOrigine','create');
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('messageOrigine',MESSAGE_FIN_CREATE_OK);
+    $this->setTemplate('editSerie');
+  }
+
+   public function executeCreateEditeur()
+  {
+    $this->editeur = new Editeur();
+	$this->idPays='';
+	$this->nomPays='';
+    $this->setFlash('actionOrigine','create');
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('messageOrigine',MESSAGE_FIN_CREATE_OK);
+    $this->setTemplate('editEditeur');
+  }
+
+   public function executeCreateAuteur()
+  {
+    $this->auteur = new Auteur();
+	$this->idPays='';
+	$this->nomPays='';
+    $this->setFlash('actionOrigine','create');
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('messageOrigine',MESSAGE_FIN_CREATE_OK);
+    $this->setTemplate('editAuteur');
+  }
+  
+  public function executeAutoCompleteNomSerie()
+  {
+  	$c = new Criteria();
+	$c->add(SeriePeer::NOM, '%'.$this->getRequestParameter('nomSerie').'%', Criteria::LIKE);
+	$this->resultats = SeriePeer::doSelect($c);
+    $this->setTemplate('autoComplete');
+  }
+  
+  public function executeAutoCompleteNomEditeur()
+  {
+  	$c = new Criteria();
+	$c->add(EditeurPeer::NOM, '%'.$this->getRequestParameter('nomEditeur').'%', Criteria::LIKE);
+	$this->resultats = EditeurPeer::doSelect($c);
+    $this->setTemplate('autoComplete');
+  }
+  
+  public function executeAutoCompleteNomGenre()
+  {
+  	$c = new Criteria();
+	$c->add(GenrePeer::NOM, '%'.$this->getRequestParameter('nomGenre').'%', Criteria::LIKE);
+	$this->resultats = GenrePeer::doSelect($c);
+    $this->setTemplate('autoComplete');
+  }
+    
+  public function executeAutoCompleteNomPays()
+  {
+  	$c = new Criteria();
+	$c->add(PaysPeer::NOM, '%'.$this->getRequestParameter('nomPays').'%', Criteria::LIKE);
+	$this->resultats = PaysPeer::doSelect($c);
+    $this->setTemplate('autoComplete');
+  }
+  
+  	
+  public function executeAutoCompleteNomScenariste()
+  {
+  	$c = new Criteria();
+	$c->add(AuteurPeer::NOM, '%'.$this->getRequestParameter('nomScenariste').'%', Criteria::LIKE);
+	$c->add(AuteurPeer::SCENARISTE, 1);
+	$this->resultats = AuteurPeer::doSelect($c);
+    $this->setTemplate('autoComplete');
+  }
+	  	
+  public function executeAutoCompleteNomColoriste()
+  {
+  	$c = new Criteria();
+	$c->add(AuteurPeer::NOM, '%'.$this->getRequestParameter('nomColoriste').'%', Criteria::LIKE);
+	$c->add(AuteurPeer::COLORISTE, 1);
+	$this->resultats = AuteurPeer::doSelect($c);
+    $this->setTemplate('autoComplete');
+  }
+	  	
+  public function executeAutoCompleteNomDessinateur()
+  {
+  	$c = new Criteria();
+	$c->add(AuteurPeer::NOM, '%'.$this->getRequestParameter('nomDessinateur').'%', Criteria::LIKE);
+	$c->add(AuteurPeer::DESSINATEUR, 1);
+	$this->resultats = AuteurPeer::doSelect($c);
+    $this->setTemplate('autoComplete');
+  }
+
+  public function executeAddCommentaire()
+  {
+	$this->myNewComm = new Commentairealbum();
+	$this->myNewComm->setCommentaire(utf8_decode($this->getRequestParameter('commentaire')));
+	$this->myNewComm->setNote($this->getRequestParameter('note'));
+	$this->myNewComm->setAlbumId($this->getRequestParameter('albumId'));
+	$this->myNewComm->setUtilisateurId($this->getRequestParameter('utilisateurId'));
+	$this->myNewComm->save();
+	$this->updateAlbumNote($this->myNewComm->getAlbum());	
+  }
+
+
+  public function executeDeleteCommentairealbum()
+  {
+	$this->comm = new Commentairealbum();
+	$this->comm = CommentairealbumPeer::retrieveByPk($this->getRequestParameter('id'));
+	$this->myAlbum = $this->comm->getAlbum();
+	$this->comm->delete();	
+	$this->updateAlbumNote($this->myAlbum);	
+  }
+
+  public function updateAlbumNote($album)
+  {
+  	$totNote=0;
+	foreach ($album->getCommentairealbums() as $comment): 
+		$totNote = $totNote + $comment->getNote();
+	endforeach; 
+	if ($album->countCommentairealbums()>0) {
+  		$note = $totNote / ($album->countCommentairealbums());
+	} else {
+  		$note = 0;
+	}
+  	$album->setNote($note);
+  	$album->save();
+  }
+  
+  
+  public function executeUpdate()
+  {
+	    if (!$this->getRequestParameter('id'))
+	    {
+	      $bd = new Album();
+	      $bd->setUtilisateurId($this->getUser()->getAttribute('id'));
+	    }
+	    else
+	    {
+	      $bd = AlbumPeer::retrieveByPk($this->getRequestParameter('id'));
+	      $this->forward404Unless($bd);
+	    }
+
+	    $bd->fromArray($this->getRequest()->getParameterHolder()->getAll(),BasePeer::TYPE_FIELDNAME);
+
+     if ($this->getRequest()->getFileName('photo1') <> '') {
+	      $fileName = $this->getRequest()->getFileName('photo1');
+		  $filePath=UPLOAD_BD_DIR.'\\'.$fileName;
+	      $bd->setPhoto1($fileName);
+	      $this->getRequest()->moveFile('photo1', $filePath);
+  		}
+
+    if ($this->getRequest()->getFileName('photo2') <> '') {
+		  $fileName = $this->getRequest()->getFileName('photo2');
+		  $filePath=UPLOAD_BD_DIR.'\\'.$fileName;
+	      $bd->setPhoto2($fileName);
+	      $this->getRequest()->moveFile('photo2', $filePath);
+    	}
+      
+        $bd->setSerieId($this->getRequestParameter('idNomSerie'));
+        $bd->setEditeurId($this->getRequestParameter('idNomEditeur'));
+        $bd->setGenreId($this->getRequestParameter('idNomGenre'));
+        
+	    $bd->save();
+	    
+	    if (!$this->getRequestParameter('id'))
+	    {
+	      $possede = new Possede();
+	      $possede->setAlbumId($bd->getId());
+	      $possede->setUtilisateurId($this->getUser()->getAttribute('id'));
+	      $possede->save();
+	    }
+
+	  	if ($this->getRequestParameter('idNomScenariste')) {
+		    $cScenariste = new Criteria();
+		    $cScenariste->add(AuteuralbumPeer::AUTEUR_ID, $this->getRequestParameter('idNomScenariste'));
+		  	$rScenariste=$bd->getAuteuralbums($cScenariste);
+		  	foreach ($rScenariste as $scenariste) {
+	  			$scenariste->setScenariste(1);
+	  			$scenariste->save();
+		  	}
+		  	if (!isset($scenariste)) {
+	  			$scenariste=new Auteuralbum();
+	  			$scenariste->setAuteurId($this->getRequestParameter('idNomScenariste'));
+	  			$scenariste->setAlbumId($bd->getId());
+	  			$scenariste->setScenariste(1);
+	  			$scenariste->setDessinateur(0);
+	  			$scenariste->setColoriste(0);
+	  			$scenariste->save();
+		  	}
+	  	}
+
+	  	if ($this->getRequestParameter('idNomDessinateur')) {
+		    $cDessinateur = new Criteria();
+		    $cDessinateur->add(AuteuralbumPeer::AUTEUR_ID, $this->getRequestParameter('idNomDessinateur'));
+		  	$rDessinateur=$bd->getAuteuralbums($cDessinateur);
+		  	foreach ($rDessinateur as $dessinateur) {
+	  			$dessinateur->setDessinateur(1);
+	  			$dessinateur->save();
+		  	}
+		  	if (!isset($dessinateur)) {
+	  			$dessinateur=new Auteuralbum();
+	  			$dessinateur->setAuteurId($this->getRequestParameter('idNomDessinateur'));
+	  			$dessinateur->setAlbumId($bd->getId());
+	  			$dessinateur->setDessinateur(1);
+	  			$dessinateur->setScenariste(0);
+	  			$dessinateur->setColoriste(0);
+	  			$dessinateur->save();
+		  	}
+	  	}
+	  	
+	  	if ($this->getRequestParameter('idNomColoriste')) {
+		    $cColoriste = new Criteria();
+		    $cColoriste->add(AuteuralbumPeer::AUTEUR_ID, $this->getRequestParameter('idNomColoriste'));
+		  	$rColoriste=$bd->getAuteuralbums($cColoriste);
+		  	foreach ($rColoriste as $coloriste) {
+	  			$coloriste->setColoriste(1);
+	  			$coloriste->save();
+		  	}
+		  	if (!isset($coloriste)) {
+	  			$coloriste=new Auteuralbum();
+	  			$coloriste->setAuteurId($this->getRequestParameter('idNomColoriste'));
+	  			$coloriste->setAlbumId($bd->getId());
+	  			$coloriste->setColoriste(1);
+	  			$coloriste->setScenariste(0);
+	  			$coloriste->setDessinateur(0);
+	  			$coloriste->save();
+		  	}
+	  	}
+  	
+
+/*	  	$message="";
+	  	foreach ($this->getRequest()->getParameterHolder()->getAll() as $param) {
+	  			$message=$message.$param;
+	  	}
+	  	
+	 	$msg = utf8_encode(addslashes("album ".$bd->getId()." modifié"));
+		die("{success: true, msg:{reason:'".$msg."'}}");
+*/	    
+  		$this->initRechercherCriteria();
+	  	$this->setFlash('messageFin',$this->getFlash('messageOrigine'));
+	  	$this->redirect('gereBD/show?id='.$bd->getId().'&sort='.$this->getRequestParameter('sort').'&rechercher='.$this->rechercher);
+  }
+
+
+public function executeUpdateSerie()
+  {
+	    if (!$this->getRequestParameter('id'))
+	    {
+	      $serie = new Serie();
+	      $serie->setUtilisateurId($this->getUser()->getAttribute('id'));
+	    }
+	    else
+	    {
+	      $serie = SeriePeer::retrieveByPk($this->getRequestParameter('id'));
+	      $this->forward404Unless($serie);
+	    }
+	    $serie->fromArray($this->getRequest()->getParameterHolder()->getAll(),BasePeer::TYPE_FIELDNAME);
+	    
+  		$pos = strrpos($this->getRequestParameter('photo1'), "\\");
+  		if ($pos) { 
+		    $ph1Tokens = explode("\\",$this->getRequestParameter('photo1'));
+		    $serie->setPhoto1($serie->getId().end($ph1Tokens));
+  		}
+  			    
+  		$pos = strrpos($this->getRequestParameter('photo2'), "\\");
+  		if ($pos) { 
+  			$ph1Tokens = explode("\\",$this->getRequestParameter('photo2'));
+		    $serie->setPhoto2($serie->getId().end($ph1Tokens));
+  		}	    
+	    
+	    foreach ($this->getRequest()->getFileNames() as $uploadedFile) {
+            $fileName = $serie->getId().$this->getRequest()->getFileName($uploadedFile); 
+            $this->getRequest()->moveFile($uploadedFile, UPLOAD_SERIE_DIR.'\\'.$fileName);
+        }
+        
+	    $serie->save();
+/*	 	$msg = utf8_encode(addslashes("serie ".$serie->getId()." modifié"));
+		die("{success: true, msg:{reason:'".$msg."'}}");
+*/
+	  	$this->setFlash('messageFin',$this->getFlash('messageOrigine'));
+	  	$this->redirect('gereBD/showSerie?id='.$serie->getId().'&sort='.$this->getRequestParameter('sort').'&rechercher='.$this->getRequestParameter('rechercher'));
+  }
+
+  public function executeUpdateEditeur()
+  {
+  		if (!$this->getRequestParameter('id'))
+	    {
+	      $editeur = new Editeur();
+	      $editeur->setUtilisateurId($this->getUser()->getAttribute('id'));
+	    }
+	    else
+	    {
+	      $editeur = EditeurPeer::retrieveByPk($this->getRequestParameter('id'));
+	      $this->forward404Unless($editeur);
+	    }
+
+	    $editeur->fromArray($this->getRequest()->getParameterHolder()->getAll(),BasePeer::TYPE_FIELDNAME);
+	    
+  		$pos = strrpos($this->getRequestParameter('photo1'), "\\");
+  		if ($pos) { 
+		    $ph1Tokens = explode("\\",$this->getRequestParameter('photo1'));
+		    $editeur->setPhoto1($editeur->getId().end($ph1Tokens));
+  		}
+  			    
+  		$pos = strrpos($this->getRequestParameter('photo2'), "\\");
+  		if ($pos) { 
+  			$ph1Tokens = explode("\\",$this->getRequestParameter('photo2'));
+		    $editeur->setPhoto2($editeur->getId().end($ph1Tokens));
+  		}	    
+	    
+	    foreach ($this->getRequest()->getFileNames() as $uploadedFile) {
+            $fileName = $editeur->getId().$this->getRequest()->getFileName($uploadedFile); 
+            $this->getRequest()->moveFile($uploadedFile, UPLOAD_EDITEUR_DIR.'\\'.$fileName);
+        }
+        
+        $editeur->setPaysId($this->getRequestParameter('idNomPays'));
+        
+        $editeur->save();
+/*	 	$msg = utf8_encode(addslashes("editeur ".$editeur->getId()." modifié"));
+		die("{success: true, msg:{reason:'".$msg."'}}");
+*/	  	$this->setFlash('messageFin',$this->getFlash('messageOrigine'));
+	  	$this->redirect('gereBD/showEditeur?id='.$editeur->getId().'&sort='.$this->getRequestParameter('sort').'&rechercher='.$this->getRequestParameter('rechercher'));
+  }
+
+  public function executeUpdateAuteur()
+  {
+  		if (!$this->getRequestParameter('id'))
+	    {
+	      $auteur = new Auteur();
+	      $auteur->setUtilisateurId($this->getUser()->getAttribute('id'));
+	    }
+	    else
+	    {
+	      $auteur = AuteurPeer::retrieveByPk($this->getRequestParameter('id'));
+	      $this->forward404Unless($auteur);
+	    }
+
+	    $auteur->fromArray($this->getRequest()->getParameterHolder()->getAll(),BasePeer::TYPE_FIELDNAME);
+  		
+	    if ($this->getRequestParameter('dateNaissance'))
+	    {
+	      list($d, $m, $Y) = sfI18N::getDateForCulture($this->getRequestParameter('dateNaissance'), $this->getUser()->getCulture());
+	      $auteur->setDateNaissance("$Y-$m-$d");
+	    }
+	    
+	    $pos = strrpos($this->getRequestParameter('photo1'), "\\");
+  		if ($pos) { 
+		    $ph1Tokens = explode("\\",$this->getRequestParameter('photo1'));
+		    $auteur->setPhoto1($auteur->getId().end($ph1Tokens));
+  		}
+  			    
+  		$pos = strrpos($this->getRequestParameter('photo2'), "\\");
+  		if ($pos) { 
+  			$ph1Tokens = explode("\\",$this->getRequestParameter('photo2'));
+		    $auteur->setPhoto2($auteur->getId().end($ph1Tokens));
+  		}	    
+	    
+	    foreach ($this->getRequest()->getFileNames() as $uploadedFile) {
+            $fileName = $auteur->getId().$this->getRequest()->getFileName($uploadedFile); 
+            $this->getRequest()->moveFile($uploadedFile, UPLOAD_AUTEUR_DIR.'\\'.$fileName);
+        }
+        
+        $auteur->setPaysId($this->getRequestParameter('idNomPays'));
+        
+	    $auteur->save();
+/*	 	$msg = utf8_encode(addslashes("auteur ".$auteur->getId()." modifié"));
+		die("{success: true, msg:{reason:'".$msg."'}}");
+*/	  	$this->setFlash('messageFin',$this->getFlash('messageOrigine'));
+	  	$this->redirect('gereBD/showAuteur?id='.$auteur->getId().'&sort='.$this->getRequestParameter('sort').'&rechercher='.$this->getRequestParameter('rechercher'));
+   }
+  
+  
+  public function executeAjouterVitrine()
+  {
+		$possede = new Possede();
+		$possede->setAlbumId($this->getRequestParameter('id'));
+		$possede->setUtilisateurId($this->getUser()->getAttribute('id'));
+		$possede->save();
+	    $this->setFlash('messageFin',$this->getFlash('messageOrigine'));
+//	    $this->redirect('gereBD/'.$this->getFlash('listeOrigine').'?id='.$this->getRequestParameter('id').'&sort='.$this->getRequestParameter('sort'));
+  }
+
+  public function executeRetirerVitrine()
+  {
+		$possede = PossedePeer::retrieveByPk($this->getRequestParameter('id'));
+		$possede->delete();
+	    $this->setFlash('messageFin',$this->getFlash('messageOrigine'));
+	    $this->redirect('gereBD/'.$this->getFlash('listeOrigine').'?utilid='.$this->getUser()->getAttribute('id').'&sort='.$this->getRequestParameter('sort'));
+  }
+  
+  public function executeEditSerie()
+  {
+  	$this->serie = SeriePeer::retrieveByPk($this->getRequestParameter('id'));
+   	$this->forward404Unless($this->serie);
+	$this->setFlash('actionOrigine','editSerie');
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('messageOrigine',MESSAGE_FIN_EDIT_OK);
+   }
+  
+  public function executeEditEditeur()
+  {
+  	$this->editeur = EditeurPeer::retrieveByPk($this->getRequestParameter('id'));
+   	$this->forward404Unless($this->editeur);
+   	
+  	if ($this->editeur->getPays()) {
+		$this->idPays = $this->editeur->getPays()->getId();
+		$this->nomPays = $this->editeur->getPays()->getNom();
+	}
+	else {
+		$this->idPays='';
+	    $this->nomPays='';
+	}
+	
+   	$this->setFlash('actionOrigine','editEditeur');
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('messageOrigine',MESSAGE_FIN_EDIT_OK);
+   }
+   
+  public function executeEditAuteur()
+  {
+  	$this->auteur = AuteurPeer::retrieveByPk($this->getRequestParameter('id'));
+   	$this->forward404Unless($this->auteur);
+	
+  	if ($this->auteur->getPays()) {
+		$this->idPays = $this->auteur->getPays()->getId();
+		$this->nomPays = $this->auteur->getPays()->getNom();
+	}
+	else {
+		$this->idPays='';
+	    $this->nomPays='';
+	}
+	
+   	$this->setFlash('actionOrigine','editAuteur');
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('messageOrigine',MESSAGE_FIN_EDIT_OK);
+   }
+   
+  public function executeEdit()
+  {
+  	$this->initRechercherCriteria();
+  	
+  	$this->bd = AlbumPeer::retrieveByPk($this->getRequestParameter('id'));
+    $this->forward404Unless($this->bd);
+    
+  	if ($this->bd->getSerie()) {
+		$this->idSerie = $this->bd->getSerie()->getId();
+		$this->nomSerie = $this->bd->getSerie()->getNom();
+	}
+	else {
+		$this->idSerie = '';
+		$this->nomSerie = '';
+	}
+	
+  	if ($this->bd->getEditeur()) {
+		$this->idEditeur = $this->bd->getEditeur()->getId();
+		$this->nomEditeur = $this->bd->getEditeur()->getNom();
+	}
+	else {
+		$this->idEditeur='';
+	    $this->nomEditeur='';
+	}
+	
+  	if ($this->bd->getGenre()) {
+		$this->idGenre = $this->bd->getGenre()->getId();
+		$this->nomGenre = $this->bd->getGenre()->getNom();
+	}
+	else {
+		$this->idGenre='';
+	    $this->nomGenre='';
+	}
+	
+	$cScenariste = new Criteria();
+    $cScenariste->add(AuteuralbumPeer::SCENARISTE, 1);
+	$this->idScenariste='';
+  	$this->nomScenariste='';
+    $rScenariste=$this->bd->getAuteuralbums($cScenariste);
+	foreach ($rScenariste as $scenariste) {
+	  	$this->idScenariste=$scenariste->getAuteur()->getId() ;
+	  	$this->nomScenariste=$scenariste->getAuteur()->getnom();
+	}
+  	
+	$cColoriste = new Criteria();
+  	$cColoriste->add(AuteuralbumPeer::COLORISTE, 1);
+  	$this->idColoriste='';
+  	$this->nomColoriste='';
+  	$rColoriste=$this->bd->getAuteuralbums($cColoriste);
+	foreach ($rColoriste as $coloriste) {
+	  	$this->idColoriste=$coloriste->getAuteur()->getId();
+	  	$this->nomColoriste=$coloriste->getAuteur()->getnom();
+	}
+	
+  	$cDessinateur = new Criteria();
+  	$cDessinateur->add(AuteuralbumPeer::DESSINATEUR, 1);
+  	$this->idDessinateur='';
+  	$this->nomDessinateur='';
+  	$rDessinateur=$this->bd->getAuteuralbums($cDessinateur);
+	foreach ($rDessinateur as $dessinateur) {
+	  	$this->idDessinateur=$dessinateur->getAuteur()->getId();
+	  	$this->nomDessinateur=$dessinateur->getAuteur()->getnom();
+	}
+	
+	$this->setFlash('actionOrigine','edit');
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('messageOrigine',MESSAGE_FIN_EDIT_OK);
+   }
+  
+
+  public function executeDelete()
+  {
+    $bd = AlbumPeer::retrieveByPk($this->getRequestParameter('id'));
+    $this->forward404Unless($bd);
+    $bd->delete();
+    $this->setFlash('messageFin',MESSAGE_FIN_DELETE_OK);
+    return $this->redirect('gereBD/'.$this->getFlash('listeOrigine').'?sort='.$this->getRequestParameter('sort'));
+  }
+
+  
+  public function handleErrorAddCommentaire()
+  {
+	$this->setTemplate('addCommentaire');
+	$this->getResponse()->setStatusCode(404);
+   	return sfView::ERROR;
+  }
+  
+  public function handleErrorUpdateSerie()
+  {
+    $this->serie = SeriePeer::retrieveByPk($this->getRequestParameter('id'));
+  	if (!$this->serie)
+  	{
+  	 	    $this->serie = new Serie();
+  	}
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('actionOrigine',$this->getFlash('actionOrigine'));
+	$this->setFlash('messageOrigine',$this->getFlash('messageOrigine'));
+  	
+	$this->setTemplate('editSerie');
+   	return sfView::SUCCESS;
+  }
+
+  public function handleErrorUpdateEditeur()
+  {
+    $this->editeur = EditeurPeer::retrieveByPk($this->getRequestParameter('id'));
+  	if (!$this->editeur)
+  	{
+  	 	    $this->editeur = new Editeur();
+  	}
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('actionOrigine',$this->getFlash('actionOrigine'));
+	$this->setFlash('messageOrigine',$this->getFlash('messageOrigine'));
+  	
+	$this->setTemplate('editEditeur');
+   	return sfView::SUCCESS;
+  }
+
+  public function handleErrorUpdateAuteur()
+  {
+    $this->auteur = AuteurPeer::retrieveByPk($this->getRequestParameter('id'));
+  	if (!$this->auteur)
+  	{
+  	 	    $this->auteur = new Auteur();
+  	}
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('actionOrigine',$this->getFlash('actionOrigine'));
+	$this->setFlash('messageOrigine',$this->getFlash('messageOrigine'));
+  	
+	$this->setTemplate('editAuteur');
+   	return sfView::SUCCESS;
+  }
+  
+  public function handleErrorUpdate()
+  {
+    $this->bd = AlbumPeer::retrieveByPk($this->getRequestParameter('id'));
+  	if (!$this->bd)
+  	{
+  	 	    $this->bd = new Album();
+  	}
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('actionOrigine',$this->getFlash('actionOrigine'));
+	$this->setFlash('messageOrigine',$this->getFlash('messageOrigine'));
+  	
+	$this->setTemplate('edit');
+   	return sfView::SUCCESS;
+  }
+  
+  
+/*   
+  public function executeTestUpdate()
+  {
+  echo 'entrée executeTestUpdate';
+	if(isset($_POST['name'])) {
+		echo 'From Server: '.$_POST['name'];
+	}
+  return true;
+  }
+
+  function executeJson() {
+	$limit = $this->getRequestParameter('limit', 8);
+	$start = $this->getRequestParameter('start', 0);
+	$c = new Criteria();
+	$c->setLimit($limit);
+	$c->setOffset($start);
+	if ($this->getRequestParameter('dir')== 'ASC') 
+	{
+  		$c->addAscendingOrderByColumn($this->getRequestParameter('sort'));
+	}
+	else
+	{
+  		$c->addDescendingOrderByColumn($this->getRequestParameter('sort'));
+	}
+	
+	$myAlbums = AlbumPeer :: doSelect($c);
+	// On crée un table avec les résultats
+	$data = array();
+	$i=0;
+	foreach ($myAlbums as $album) {
+	    $data[$i]['id']=$album->getId();
+	    $data[$i]['talbum']=$album->getTalbum();
+	    $data[$i]['commentaire']=$album->getCommentaire();
+	    $data[$i]['dateParu']=$album->getDateParu();
+	    $data[$i]['depotLegal']=$album->getDepotLegal();
+	    $data[$i]['histoire']=$album->getHistoire();
+	    $data[$i]['integrale']=$album->getIntegrale();
+	    $data[$i]['ISBN']=$album->getISBN();
+	    $data[$i]['ISSN']=$album->getISSN();
+	    $data[$i]['nbrePage']=$album->getNbrePage();
+	    $data[$i]['photo1']=$album->getPhoto1();
+	    $data[$i]['imgPhoto1']=($album->getPhoto1()==' ' || $album->getPhoto1()=='')?' ':UPLOAD_BD_DIR_REL.'/'.$album->getPhoto1();
+	    $data[$i]['photo2']=$album->getPhoto2();
+	    $data[$i]['imgPhoto2']=($album->getPhoto2()==' ' || $album->getPhoto2()=='')?' ':UPLOAD_BD_DIR_REL.'/'.$album->getPhoto2();
+	    $data[$i]['genre']=$album->getGenre()->getId();
+	    $data[$i]['serie']=$album->getSerie()->getId();
+	    $data[$i]['editeur']=$album->getEditeur()->getId();
+	    $data[$i]['proprietaire']=($album->getUtilisateurId()==$this->getUser()->getAttribute('id'))?true:false;
+	    $cScenariste = new Criteria();
+	  	$cScenariste->add(AuteuralbumPeer::SCENARISTE, 1);
+		$cColoriste = new Criteria();
+	  	$cColoriste->add(AuteuralbumPeer::COLORISTE, 1);
+	  	$cDessinateur = new Criteria();
+	  	$cDessinateur->add(AuteuralbumPeer::DESSINATEUR, 1);
+		$data[$i]['scenariste']=0;
+		$data[$i]['coloriste']=0;
+		$data[$i]['dessinateur']=0;
+	  	$rScenariste=$album->getAuteuralbums($cScenariste);
+	  	foreach ($rScenariste as $scenariste) {
+	  		$data[$i]['scenariste']=$scenariste->getAuteurId();
+	  	}
+	  	$rColoriste=$album->getAuteuralbums($cColoriste);
+	  	foreach ($rColoriste as $coloriste) {
+	  		$data[$i]['coloriste']=$coloriste->getAuteurId();
+	  	}
+	  	$rDessinateur=$album->getAuteuralbums($cDessinateur);
+	  	foreach ($rDessinateur as $dessinateur) {
+	  		$data[$i]['dessinateur']=$dessinateur->getAuteurId();
+	  	}
+	  	$i++;
+	}
+
+    $result = array(
+      'total' => AlbumPeer :: doCount(new Criteria()),
+      'data'  => $data
+    );
+
+     
+    $result = json_encode($result);
+
+    $this->getResponse()->setHttpHeader("X-JSON", '()'); // set a header, (although it is empty, it is nicer than without a correct header. Filling the header with the result will not be parsed by extjs as far as I have seen).
+//    sfConfig::set('sf_web_debug', false); // set to false for speed-up (done automatically for production-environment)
+    return $this->renderText($result);  // so return the result in the content, but without using symfony-templates.
+  
+  }
+  
+  function executeJsonListeSeries() {
+	$limit = $this->getRequestParameter('limit', 8);
+	$start = $this->getRequestParameter('start', 0);
+	$c = new Criteria();
+	$c->setLimit($limit);
+	$c->setOffset($start);
+	if ($this->getRequestParameter('dir')== 'ASC') 
+	{
+  		$c->addAscendingOrderByColumn($this->getRequestParameter('sort'));
+	}
+	else
+	{
+  		$c->addDescendingOrderByColumn($this->getRequestParameter('sort'));
+	}
+	
+	$mySeries = SeriePeer :: doSelect($c);
+	// On crée un table avec les résultats
+	$listeSeries = array();
+	$i=0;
+	foreach ($mySeries as $serie) {
+	    $listeSeries[$i]['id']=$serie->getId();
+	    $listeSeries[$i]['nom']=$serie->getNom();
+	    $listeSeries[$i]['histoire']=$serie->getHistoire();
+	    $listeSeries[$i]['commentaire']=$serie->getCommentaire();
+	    $listeSeries[$i]['photo1']=$serie->getPhoto1();
+	    $listeSeries[$i]['imgPhoto1']=($serie->getPhoto1()==' ' || $serie->getPhoto1()=='')?' ':UPLOAD_SERIE_DIR_REL.'/'.$serie->getPhoto1();
+	    $listeSeries[$i]['photo2']=$serie->getPhoto2();
+	    $listeSeries[$i]['imgPhoto2']=($serie->getPhoto2()==' ' || $serie->getPhoto2()=='')?' ':UPLOAD_SERIE_DIR_REL.'/'.$serie->getPhoto2();
+	    $listeSeries[$i]['siteWeb1']=$serie->getSiteWeb1();
+	    $listeSeries[$i]['siteWeb2']=$serie->getSiteWeb2();
+	    $listeSeries[$i]['proprietaire']=($serie->getUtilisateurId()==$this->getUser()->getAttribute('id'))?true:false;
+	    $i++;
+	}
+
+    $result = array(
+      'totalListeSeries' => SeriePeer :: doCount(new Criteria()),
+      'listeSeries'  => $listeSeries
+    );
+
+     
+    $result = json_encode($result);
+
+    $this->getResponse()->setHttpHeader("X-JSON", '()'); // set a header, (although it is empty, it is nicer than without a correct header. Filling the header with the result will not be parsed by extjs as far as I have seen).
+//    sfConfig::set('sf_web_debug', false); // set to false for speed-up (done automatically for production-environment)
+    return $this->renderText($result);  // so return the result in the content, but without using symfony-templates.
+  
+  }
+  
+  function executeJsonListeEditeurs() {
+	$limit = $this->getRequestParameter('limit', 8);
+	$start = $this->getRequestParameter('start', 0);
+	$c = new Criteria();
+	$c->setLimit($limit);
+	$c->setOffset($start);
+	if ($this->getRequestParameter('dir')== 'ASC') 
+	{
+  		$c->addAscendingOrderByColumn($this->getRequestParameter('sort'));
+	}
+	else
+	{
+  		$c->addDescendingOrderByColumn($this->getRequestParameter('sort'));
+	}
+	
+	$myEditeurs = EditeurPeer :: doSelect($c);
+	// On crée un table avec les résultats
+	$listeEditeurs = array();
+	$i=0;
+	foreach ($myEditeurs as $editeur) {
+	    $listeEditeurs[$i]['id']=$editeur->getId();
+	    $listeEditeurs[$i]['nom']=$editeur->getNom();
+	    $listeEditeurs[$i]['adresse1']=$editeur->getAdresse1();
+	    $listeEditeurs[$i]['adresse2']=$editeur->getAdresse2();
+	    $listeEditeurs[$i]['cp']=$editeur->getCp();
+	    $listeEditeurs[$i]['pays']=$editeur->getPaysId();
+	    $listeEditeurs[$i]['photo1']=$editeur->getPhoto1();
+	    $listeEditeurs[$i]['imgPhoto1']=($editeur->getPhoto1()==' ' || $editeur->getPhoto1()=='')?' ':UPLOAD_EDITEUR_DIR_REL.'/'.$editeur->getPhoto1();
+	    $listeEditeurs[$i]['photo2']=$editeur->getPhoto2();
+	    $listeEditeurs[$i]['imgPhoto2']=($editeur->getPhoto2()==' ' || $editeur->getPhoto2()=='')?' ':UPLOAD_EDITEUR_DIR_REL.'/'.$editeur->getPhoto2();
+	    $listeEditeurs[$i]['site']=$editeur->getSite();
+	    $listeEditeurs[$i]['tel']=$editeur->getTel();
+	    $listeEditeurs[$i]['ville']=$editeur->getVille();
+	    $listeEditeurs[$i]['proprietaire']=($editeur->getUtilisateurId()==$this->getUser()->getAttribute('id'))?true:false;
+	    $i++;
+	}
+
+    $result = array(
+      'totalListeEditeurs' => EditeurPeer :: doCount(new Criteria()),
+      'listeEditeurs'  => $listeEditeurs
+    );
+
+     
+    $result = json_encode($result);
+
+    $this->getResponse()->setHttpHeader("X-JSON", '()'); // set a header, (although it is empty, it is nicer than without a correct header. Filling the header with the result will not be parsed by extjs as far as I have seen).
+//    sfConfig::set('sf_web_debug', false); // set to false for speed-up (done automatically for production-environment)
+    return $this->renderText($result);  // so return the result in the content, but without using symfony-templates.
+  
+  }
+
+  function executeJsonListeAuteurs() {
+	$limit = $this->getRequestParameter('limit', 8);
+	$start = $this->getRequestParameter('start', 0);
+	$c = new Criteria();
+	$c->setLimit($limit);
+	$c->setOffset($start);
+	if ($this->getRequestParameter('dir')== 'ASC') 
+	{
+  		$c->addAscendingOrderByColumn($this->getRequestParameter('sort'));
+	}
+	else
+	{
+  		$c->addDescendingOrderByColumn($this->getRequestParameter('sort'));
+	}
+	
+	$myAuteurs = AuteurPeer :: doSelect($c);
+	// On crée un table avec les résultats
+	$listeAuteurs = array();
+	$i=0;
+	foreach ($myAuteurs as $auteur) {
+	    $listeAuteurs[$i]['id']=$auteur->getId();
+	    $listeAuteurs[$i]['nom']=$auteur->getNom();
+	    $listeAuteurs[$i]['prenom']=$auteur->getPrenom();
+	    $listeAuteurs[$i]['surnom']=$auteur->getSurnom();
+	    $listeAuteurs[$i]['commentaire']=$auteur->getCommentaire();
+	    $listeAuteurs[$i]['lieuNaissance']=$auteur->getLieuNaissance();
+	    $listeAuteurs[$i]['dateNaissance']=$auteur->getDateNaissance();
+	    $listeAuteurs[$i]['pays']=$auteur->getPaysId();
+	    $listeAuteurs[$i]['scenariste']=$auteur->getScenariste();
+	    $listeAuteurs[$i]['dessinateur']=$auteur->getDessinateur();
+	    $listeAuteurs[$i]['coloriste']=$auteur->getColoriste();
+	    $listeAuteurs[$i]['photo1']=$auteur->getPhoto1();
+	    $listeAuteurs[$i]['imgPhoto1']=($auteur->getPhoto1()==' ' || $auteur->getPhoto1()=='')?' ':UPLOAD_AUTEUR_DIR_REL.'/'.$auteur->getPhoto1();
+	    $listeAuteurs[$i]['photo2']=$auteur->getPhoto2();
+	    $listeAuteurs[$i]['imgPhoto2']=($auteur->getPhoto2()==' ' || $auteur->getPhoto2()=='')?' ':UPLOAD_AUTEUR_DIR_REL.'/'.$auteur->getPhoto2();
+	    $listeAuteurs[$i]['web1']=$auteur->getWeb1();
+	    $listeAuteurs[$i]['web2']=$auteur->getWeb2();
+	    $listeAuteurs[$i]['proprietaire']=($auteur->getUtilisateurId()==$this->getUser()->getAttribute('id'))?true:false;
+	    $i++;
+	}
+
+    $result = array(
+      'totalListeAuteurs' => AuteurPeer :: doCount(new Criteria()),
+      'listeAuteurs'  => $listeAuteurs
+    );
+
+     
+    $result = json_encode($result);
+
+    $this->getResponse()->setHttpHeader("X-JSON", '()'); // set a header, (although it is empty, it is nicer than without a correct header. Filling the header with the result will not be parsed by extjs as far as I have seen).
+//    sfConfig::set('sf_web_debug', false); // set to false for speed-up (done automatically for production-environment)
+    return $this->renderText($result);  // so return the result in the content, but without using symfony-templates.
+  
+  }
+  
+public function executeCboListSerie() {
+	$msg="";
+	$c = new Criteria();
+	$limit = $this->getRequestParameter('limit', 5);
+	$start = $this->getRequestParameter('start', 0);
+	$query = $this->getRequestParameter('query');
+	$c->setLimit($limit);
+	$c->setOffset($start);
+
+	$phrase = stripslashes(trim($query));		//on récupere de l'utf8
+	$phrase=str_replace(","," ", $phrase);		//on remplace les ponctiations par des espaces
+	$phrase=str_replace("."," ", $phrase);
+	$phrase=str_replace("!"," ", $phrase);
+	$phrase=str_replace("?"," ", $phrase);
+	$phrase=str_replace(":"," ", $phrase);
+	$phrase=str_replace("\"","", $phrase);
+	$phrase=str_replace("'","", $phrase);
+	$phrase=str_replace("$"," ", $phrase);
+	$phrase=str_replace("%"," ", $phrase);
+	$phrase = trim($phrase);
+	$mots=split(" ",$phrase);		//on sépare la phrase dans un tableau de mots
+	
+	$nombre_mots=count($mots)-1;
+	$z=0;
+	$criterion = $c->getNewCriterion(SeriePeer::NOM, '%'.$mots[$z].'%', Criteria::LIKE);
+	while($z<$nombre_mots)
+	{
+  		$criterion->addOr($c->getNewCriterion(SeriePeer::NOM, '%'.$mots[$z].'%', Criteria::LIKE));
+		$z++;
+	}
+
+  	$c->add($criterion);
+	
+	$mySeries = SeriePeer :: doSelect($c);
+	$premiere_virgule=0;
+	foreach ($mySeries as $serie) {
+		$id = $serie->getId();
+		$nom = $serie->getNom();
+		
+		if ($premiere_virgule != 0) $msg.=",";
+		$msg.='{
+		search_idSerie:"'.$id.'",
+		search_nomSerie:"'.$nom.'"
+		}';
+		$premiere_virgule++;
+	}
+	$total=SeriePeer :: doCount($c);
+	$msg = '{"totalCount":"'.$total.'","series":['.$msg.']}';
+	die ($msg);
+}
+
+public function executeCboListGenre() {
+	$msg="";
+	$c = new Criteria();
+	$limit = $this->getRequestParameter('limit', 5);
+	$start = $this->getRequestParameter('start', 0);
+	$query = $this->getRequestParameter('query');
+	$c->setLimit($limit);
+	$c->setOffset($start);
+
+	$phrase = stripslashes(trim($query));		//on récupere de l'utf8
+	$phrase=str_replace(","," ", $phrase);		//on remplace les ponctiations par des espaces
+	$phrase=str_replace("."," ", $phrase);
+	$phrase=str_replace("!"," ", $phrase);
+	$phrase=str_replace("?"," ", $phrase);
+	$phrase=str_replace(":"," ", $phrase);
+	$phrase=str_replace("\"","", $phrase);
+	$phrase=str_replace("'","", $phrase);
+	$phrase=str_replace("$"," ", $phrase);
+	$phrase=str_replace("%"," ", $phrase);
+	$phrase = trim($phrase);
+	$mots=split(" ",$phrase);		//on sépare la phrase dans un tableau de mots
+	
+	$nombre_mots=count($mots)-1;
+	$z=0;
+	$criterion = $c->getNewCriterion(GenrePeer::NOM, '%'.$mots[$z].'%', Criteria::LIKE);
+	while($z<$nombre_mots)
+	{
+  		$criterion->addOr($c->getNewCriterion(GenrePeer::NOM, '%'.$mots[$z].'%', Criteria::LIKE));
+		$z++;
+	}
+
+  	$c->add($criterion);
+	
+	$myGenres = GenrePeer :: doSelect($c);
+	$premiere_virgule=0;
+	foreach ($myGenres as $genre) {
+		$id = $genre->getId();
+		$nom = $genre->getNom();
+		
+		if ($premiere_virgule != 0) $msg.=",";
+		$msg.='{
+		search_idGenre:"'.$id.'",
+		search_nomGenre:"'.$nom.'"
+		}';
+		$premiere_virgule++;
+	}
+	$total=GenrePeer :: doCount($c);
+	$msg = '{"totalCount":"'.$total.'","genres":['.$msg.']}';
+	die ($msg);
+}
+
+public function executeCboListEditeur() {
+	$msg="";
+	$c = new Criteria();
+	$limit = $this->getRequestParameter('limit', 5);
+	$start = $this->getRequestParameter('start', 0);
+	$query = $this->getRequestParameter('query');
+	$c->setLimit($limit);
+	$c->setOffset($start);
+
+	$phrase = stripslashes(trim($query));		//on récupere de l'utf8
+	$phrase=str_replace(","," ", $phrase);		//on remplace les ponctiations par des espaces
+	$phrase=str_replace("."," ", $phrase);
+	$phrase=str_replace("!"," ", $phrase);
+	$phrase=str_replace("?"," ", $phrase);
+	$phrase=str_replace(":"," ", $phrase);
+	$phrase=str_replace("\"","", $phrase);
+	$phrase=str_replace("'","", $phrase);
+	$phrase=str_replace("$"," ", $phrase);
+	$phrase=str_replace("%"," ", $phrase);
+	$phrase = trim($phrase);
+	$mots=split(" ",$phrase);		//on sépare la phrase dans un tableau de mots
+	
+	$nombre_mots=count($mots)-1;
+	$z=0;
+	$criterion = $c->getNewCriterion(EditeurPeer::NOM, '%'.$mots[$z].'%', Criteria::LIKE);
+	while($z<$nombre_mots)
+	{
+  		$criterion->addOr($c->getNewCriterion(EditeurPeer::NOM, '%'.$mots[$z].'%', Criteria::LIKE));
+		$z++;
+	}
+
+  	$c->add($criterion);
+	
+	$myEditeurs = EditeurPeer :: doSelect($c);
+	$premiere_virgule=0;
+	foreach ($myEditeurs as $editeur) {
+		$id = $editeur->getId();
+		$nom = $editeur->getNom();
+		
+		if ($premiere_virgule != 0) $msg.=",";
+		$msg.='{
+		search_idEditeur:"'.$id.'",
+		search_nomEditeur:"'.$nom.'"
+		}';
+		$premiere_virgule++;
+	}
+	$total=EditeurPeer :: doCount($c);
+	$msg = '{"totalCount":"'.$total.'","editeurs":['.$msg.']}';
+	die ($msg);
+}
+
+public function executeCboListAuteur() {
+	$msg="";
+	$c = new Criteria();
+	$limit = $this->getRequestParameter('limit', 5);
+	$start = $this->getRequestParameter('start', 0);
+	$query = $this->getRequestParameter('query');
+	$c->setLimit($limit);
+	$c->setOffset($start);
+
+	$phrase = stripslashes(trim($query));		//on récupere de l'utf8
+	$phrase=str_replace(","," ", $phrase);		//on remplace les ponctiations par des espaces
+	$phrase=str_replace("."," ", $phrase);
+	$phrase=str_replace("!"," ", $phrase);
+	$phrase=str_replace("?"," ", $phrase);
+	$phrase=str_replace(":"," ", $phrase);
+	$phrase=str_replace("\"","", $phrase);
+	$phrase=str_replace("'","", $phrase);
+	$phrase=str_replace("$"," ", $phrase);
+	$phrase=str_replace("%"," ", $phrase);
+	$phrase = trim($phrase);
+	$mots=split(" ",$phrase);		//on sépare la phrase dans un tableau de mots
+	
+	$nombre_mots=count($mots)-1;
+	$z=0;
+	$criterion = $c->getNewCriterion(AuteurPeer::NOM, '%'.$mots[$z].'%', Criteria::LIKE);
+	while($z<$nombre_mots)
+	{
+  		$criterion->addOr($c->getNewCriterion(AuteurPeer::NOM, '%'.$mots[$z].'%', Criteria::LIKE));
+		$z++;
+	}
+
+  	$c->add($criterion);
+	
+	$myAuteurs = AuteurPeer :: doSelect($c);
+	$premiere_virgule=0;
+	foreach ($myAuteurs as $auteur) {
+		$id = $auteur->getId();
+		$nom = $auteur->getNom();
+		$scenariste = $auteur->getScenariste();
+		$coloriste = $auteur->getColoriste();
+		$dessinateur = $auteur->getDessinateur();
+		
+		if ($premiere_virgule != 0) $msg.=",";
+		$msg.='{
+		"search_idAuteur":"'.$id.'",
+		"search_nomAuteur":"'.$nom.'",
+		"search_scenariste":"'.$scenariste.'",
+		"search_coloriste":"'.$coloriste.'",
+		"search_dessinateur":"'.$dessinateur.'"
+	}';
+		$premiere_virgule++;
+	}
+	$total=AuteurPeer :: doCount($c);
+	$msg = '{"totalCount":"'.$total.'","auteurs":['.$msg.']}';
+	die ($msg);
+}
+
+
+public function executeCboListPays() {
+	$msg="";
+	$c = new Criteria();
+	$limit = $this->getRequestParameter('limit', 5);
+	$start = $this->getRequestParameter('start', 0);
+	$query = $this->getRequestParameter('query');
+	$c->setLimit($limit);
+	$c->setOffset($start);
+
+	$phrase = stripslashes(trim($query));		//on récupere de l'utf8
+	$phrase=str_replace(","," ", $phrase);		//on remplace les ponctiations par des espaces
+	$phrase=str_replace("."," ", $phrase);
+	$phrase=str_replace("!"," ", $phrase);
+	$phrase=str_replace("?"," ", $phrase);
+	$phrase=str_replace(":"," ", $phrase);
+	$phrase=str_replace("\"","", $phrase);
+	$phrase=str_replace("'","", $phrase);
+	$phrase=str_replace("$"," ", $phrase);
+	$phrase=str_replace("%"," ", $phrase);
+	$phrase = trim($phrase);
+	$mots=split(" ",$phrase);		//on sépare la phrase dans un tableau de mots
+	
+	$nombre_mots=count($mots)-1;
+	$z=0;
+	$criterion = $c->getNewCriterion(PaysPeer::NOM, '%'.$mots[$z].'%', Criteria::LIKE);
+	while($z<$nombre_mots)
+	{
+  		$criterion->addOr($c->getNewCriterion(PaysPeer::NOM, '%'.$mots[$z].'%', Criteria::LIKE));
+		$z++;
+	}
+
+  	$c->add($criterion);
+	
+	$myPays = PaysPeer :: doSelect($c);
+	$premiere_virgule=0;
+	foreach ($myPays as $pays) {
+		$id = $pays->getId();
+		$nom = $pays->getNom();
+		
+		if ($premiere_virgule != 0) $msg.=",";
+		$msg.='{
+		"search_idPays":"'.$id.'",
+		"search_nomPays":"'.$nom.'"
+		}';
+		$premiere_virgule++;
+	}
+	$total=PaysPeer :: doCount($c);
+	$msg = '{"totalCount":"'.$total.'","pays":['.$msg.']}';
+	die ($msg);
+}*/
+/*
+  public function executeCreateSerie()
+  {
+    $this->serie = new Serie();
+	$this->setFlash('actionOrigine','createSerie');
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('messageOrigine',MESSAGE_FIN_CREATE_OK);
+    $this->setTemplate('editSerie');
+  }
+
+      
+   public function executeCreateEditeur()
+  {
+    $this->editeur = new Editeur();
+	$this->setFlash('actionOrigine','createEditeur');
+	$this->setFlash('listeOrigine',$this->getFlash('listeOrigine'));
+	$this->setFlash('messageOrigine',MESSAGE_FIN_CREATE_OK);
+    $this->setTemplate('editEditeur');
+  }
+*/  
+  
+}
+?>

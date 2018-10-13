@@ -1,0 +1,8 @@
+all:
+  sf_guard_plugin:
+    routes_register: false
+  google_maps_api:
+    keys:
+      www.trocabd.com:  AIzaSyCeDejCLbn6UTrrqyTSYXup3mNcrMApU0I
+      localhost  :  AIzaSyCeDejCLbn6UTrrqyTSYXup3mNcrMApU0I
+

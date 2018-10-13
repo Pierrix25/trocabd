@@ -1,0 +1,8 @@
+fillin:
+  enabled: true
+  param: 
+    name: formEditBd
+fields:
+  talbum:
+    required:
+      msg: Le champ titre doit contenir une valeur

@@ -1,0 +1,1083 @@
+
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"
+>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+<head>
+    <title>Bedetheque - BD, Manga, Comics</title>
+        <META NAME="description" CONTENT="La base de données BD, manga et comics de référence. Séries, albums, auteurs, cotes, informations détaillées et petites annonces de ventes BD">        <META NAME="keywords" CONTENT="bd, manga, comics, base, cote, argus, cotation, bdm, bande, dessinee, bandes, dessines, logiciel, gestion, collection, couverture, comix, petites annonces, ventes">    
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+   
+    <meta name="identifier-url" content="http://www.bedetheque.com" />
+    <meta name="category" content="bd" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link _base_href="http://www.bdgest.com/" href="http://www.bdgest.com/bdgest.xml" title="Les dernières nouvelles de BD Gest'" type="application/rss+xml" rel="alternate"/>
+    <link rel="stylesheet" href="header.css" type="text/css">
+    <link href="v3/sous_menu.css?v=1233830238" rel="stylesheet" type="text/css" /> 
+    <link href="v3/styles.css?v=1260898484" rel="stylesheet" type="text/css" /> 
+    <link rel="stylesheet" type="text/css" href="css/rating.css" />
+
+
+    <!--[if IE]>
+    <link href="v3/stylesIE.css?v=1200388233" rel="stylesheet" type="text/css" /> 
+    <![endif]-->
+    <!--[if IE 6]>
+    <link href="v3/stylesIE6.css?v=1236155089" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+
+    	<style type="text/css">
+	    body {
+    		background-color: #000000;
+		background: #000000 url('./habillages/Lloydsinger.jpg') center top no-repeat;
+	    }		
+	    #layout {
+    		top:185px
+	    }
+
+	   #legal {
+    		top:185px;
+    		color: #000000;
+	   }
+	   #ombre_top {
+    		top:185px;
+	   }  
+	   #zone_cliquable1 {
+	    	margin: 0 0 0 0;
+    		position: absolute;
+    		top: -185px;
+    		left: 0px;
+    		width: 925px;
+    		height: 185px;
+    		z-index:1;
+    		float: right;
+	  }
+	  
+	  
+	</style>
+	<!--[if IE 6]> 
+    	<link href="v3/stylesIE6_habillage.css?v=1236329100" rel="stylesheet" type="text/css" />
+    	<![endif]-->
+    
+
+<script language="javascript" src="header.js?v=1249585478"></script>
+
+<script type="text/javascript" language="javascript" src="js/behavior.js"></script>
+<script type="text/javascript" language="javascript" src="js/rating.js"></script>
+<script type="text/javascript" language="javascript" src="v3/sous_menu.js"></script>	
+
+<!-- jquery -->
+<link type="text/css" href="jquery/jquery-ui-1.7.2.custom.css" rel="stylesheet" /> 
+<script type="text/javascript" src="jquery/jquery-1.3.2.min.js"></script> 
+<script type="text/javascript" src="jquery/jquery-ui-1.7.2.custom.min.js"></script> 
+<script type="text/javascript" src="./jquery/jquery.metadata.js"></script> 
+<link rel="stylesheet" type="text/css" href="./jquery/css/jquery.autocomplete.css" /> 
+<script type="text/javascript" src="./jquery/jquery.autocomplete.js"></script> 
+
+<!--<link rel="stylesheet" type="text/css" href="./jquery/css/jquery.tooltip.css" /> -->
+<!--<script type="text/javascript" src="./jquery/jquery.tooltip.js"></script> -->
+<!--<script type="text/javascript" src="./jquery/jquery.dimensions.js"></script> -->
+<script type="text/javascript" src="./jquery/jquery.validate.min.js"></script> 
+
+
+<!-- Gestion de l'affichage des images -->
+<script type="text/javascript" src="js/lytebox.js"></script>
+<link rel="stylesheet" href="css/lytebox.css" type="text/css" media="screen" />
+
+<script type="text/javascript" language="javascript" src="js/create.js"></script>
+
+
+
+<script language="javascript">
+function display(calque)
+{
+	var targetElement;
+	targetElement = document.getElementById(calque) ;
+	if (targetElement.style.display == "none")
+	{
+		targetElement.style.display = "" ;
+	} else {
+		targetElement.style.display = "none" ;
+	}
+}
+
+/**
+ *
+ * @access public
+ * @return void
+ **/
+function AfficheCat(formbd, typebd){
+
+	if (typebd == 1) {
+		document.forms[formbd].elements['CategorieParaBD2D'].style.display = "";
+		document.forms[formbd].elements['CategorieParaBD3D'].style.display = "none";
+		document.forms[formbd].elements['CategorieParaBDMulti'].style.display = "none";
+	}
+	if (typebd == 2) {
+		document.forms[formbd].elements['CategorieParaBD2D'].style.display = "none";
+		document.forms[formbd].elements['CategorieParaBD3D'].style.display = "";
+		document.forms[formbd].elements['CategorieParaBDMulti'].style.display = "none";
+	}
+	if (typebd == 3) {
+		document.forms[formbd].elements['CategorieParaBD2D'].style.display = "none";
+		document.forms[formbd].elements['CategorieParaBD3D'].style.display = "none";
+		document.forms[formbd].elements['CategorieParaBDMulti'].style.display = "";
+	}
+
+}
+</script>
+
+
+
+
+<script type="text/javascript">
+window.google_analytics_uacct = "UA-2597634-2";
+</script>
+
+
+<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'>
+</script>
+<script type='text/javascript'>
+GS_googleAddAdSenseService("ca-pub-8040689800716603");
+GS_googleEnableAllServices();
+</script>
+<script type='text/javascript'>
+GA_googleAddSlot("ca-pub-8040689800716603", "bedetheque_300x250");
+GA_googleAddSlot("ca-pub-8040689800716603", "bedetheque_468x60");
+GA_googleAddSlot("ca-pub-8040689800716603", "bedetheque_728x90");
+GA_googleAddSlot("ca-pub-8040689800716603", "bedetheque_accueil_728x90");
+GA_googleAddSlot("ca-pub-8040689800716603", "bedetheque_habillage");
+</script>
+<script type='text/javascript'>
+GA_googleFetchAds();
+</script>
+
+</head>
+
+<body>
+
+
+<!-- Barre de navigation superieure -->
+
+
+<div id="ombre_top" style=""></div> 
+<div id="layout" style="">
+    <div id="header">
+	<div id="logo"><a href="http://www.bedetheque.com" title="Accueil"><img src="v3/vide.gif" height="50" width="153" border="0"></a></div>
+	<div id="header_login">
+
+		
+	
+		<div style="padding-top:5px;">
+		<!--[if IE]>
+		<div style="margin-left:10px;">
+		<![endif]-->
+		<table cellspacing=1 cellpadding=0>
+		<form method="post" action="index.php">
+		<input type="hidden" name="Login" value="1">
+		<input type="hidden" name="PageSource" value="/Planches/S_09052006.jpg">
+		<tr>
+		    <td width="54"><input class="textelogin" type="text" name="Alogin" onfocus="if (this.value == 'Pseudo') this.value = '';" value="Pseudo" size="10"></td>
+		    <td width="50"><input class="textelogin" type="password" name="Apwd" size="10" onfocus="if (this.value == 'XXXXXX') this.value = '';" value="XXXXXX"></td>
+		    <td width="30"><input type="submit" class="boutonlogin" name="login" value="OK" style="height: 23px;"></td>
+		</tr>
+		<tr>
+		    <td colspan="3" align="center">
+		         <input name="autologin" id="autologin" tabindex="4" type="checkbox"> <font style="font-size:7pt;">Connexion automatique</font><br>
+		         <a href="http://www.bdgest.com/forum/ucp.php?mode=register" style:"font-weight : bold;"><font style="font-size:7pt;">S'inscrire</font></a> |
+		         <a href="http://www.bdgest.com/forum/ucp.php?mode=sendpassword" style:"font-weight : bold;"><font style="font-size:7pt;">Passe perdu</font></a>
+		    </td>
+		</tr>
+		</form>
+		</table>
+		<!--[if IE]>
+		</div>
+		<![endif]-->
+		</div>
+	
+		
+		
+	
+			
+			
+		
+	
+	</div>
+	<div id="header_banniere">
+			
+		
+	
+		<!-- ca-pub-8040689800716603/bedetheque_accueil_728x90 -->
+		<!--<script type='text/javascript'>
+		GA_googleFillSlot("bedetheque_accueil_728x90");
+		</script> -->
+		
+
+
+
+		
+	</div>
+	
+	
+	<div id="header_barre">
+	<table cellpadding="0" cellspacing="0" width="100%"><tr>
+	<td valign="top" align="left">
+	&nbsp;
+	<!--<font style="font-size:7pt; color:#999999;"><b>276</b> connectés sur le site</font>--></td>
+	<td align="right" valign="top" width="205">
+	<form method="post" action="index.php"><font style="font-size:7pt; color:#999999;">Langue des séries : </font><select name="LangueSite" style="margin-top:1px; font-family: Verdana; font-size: 7pt; width: 100px; height: 16px;" onchange="javascript:form.submit();"><option value="Allemand" >Allemand</option><option value="Anglais" >Anglais</option><option value="Autre" >Autre</option><option value="Espagnol" >Espagnol</option><option value="Français" selected="selected">Français</option><option value="Italien" >Italien</option><option value="Japonais" >Japonais</option><option value="Neerlandais" >Neerlandais</option><option value="Portugais" >Portugais</option></select></form>	</td>
+	<td align="right" width="30">
+	 &nbsp;<img src="images/France.png" height="13" width="16" border="0" style="margin-top:1px;display:inline;">&nbsp;
+	</td>
+		<td align="right" width="23">
+		<a href="http://www.bdgest.com/bdgest.xml"><img src="images/ico_rss.png" height="16" width="16" title="Suivez l'actualité du site en direct" border="0" style="vertical-align:middle;display:inline;"></a>&nbsp;
+	</td>
+	
+	</tr></table>
+	</div>
+	
+	
+	
+			<div id="zone_cliquable1">
+			
+		</div>
+		
+	
+    </div>
+    
+        
+ 
+	
+	     	<div class="header_menu"><center><table class="menu" cellpadding=0 cellspacing=0 width="740"><tr>
+    	    	
+    	
+    	<td class="menu_sep"></td>
+	<td><div class="menu_bleu"><a href="http://www.bdgest.com/" >&nbsp;&nbsp;Accueil&nbsp;&nbsp;</a></div></td>
+    	<td class="menu_sep"></td>
+	<td onMouseOver="afficheId('menuLogiciel');" onMouseOut="cacheId('menuLogiciel');"><div class="menu_bleu"><a href="http://www.bdgest.com/presentation.php">&nbsp;Logiciel&nbsp;&nbsp;<img src="images/dropdown.gif" border="0" /></a>
+	<div id="menuLogiciel" class="sous_menu">
+	<table width="100%">
+	<tr><td  onclick="location.href='http://www.bdgest.com/presentation.php';"><a href="http://www.bdgest.com/presentation.php"><img src="images/dropdown4.gif" border="0" />Pr&eacute;sentation</a></td></tr>
+	<tr><td  onclick="location.href='http://www.bdgest.com/telecharger.php';"><a href="http://www.bdgest.com/telecharger.php"><img src="images/dropdown4.gif" border="0" />T&eacute;l&eacute;charger</a></td></tr>
+	<tr><td  onclick="location.href='http://www.bdgest.com/commander.php';"><a href="http://www.bdgest.com/commander.php" ><img src="images/dropdown4.gif" border="0" />Commander</a></td></tr>
+	<tr><td  onclick="location.href='http://www.bdgest.com/presse.php';"><a href="http://www.bdgest.com/presse.php" ><img src="images/dropdown4.gif" border="0" />La presse en parle</a></td></tr>
+	<tr><td  onclick="location.href='http://www.bdgest.com/forum/logiciel-bd-gest.html';"><a href="http://www.bdgest.com/forum/logiciel-bd-gest.html" ><img src="images/dropdown4.gif" border="0" />Aide</a></td></tr>
+	</table>
+	</div>
+	</div>
+	</td>
+
+	
+	
+	
+	<td class="menu_sep"></td>
+	<td onMouseOver="afficheId('menuActualite');" onMouseOut="cacheId('menuActualite');"><div class="menu_bleu"><a href="#">&nbsp;Actualit&eacute;&nbsp;&nbsp;<img src="images/dropdown.gif" border="0" /></a>
+	<div id="menuActualite" class="sous_menu">
+	<table width="100%">
+	<tr><td onclick="location.href='http://www.bdgest.com/critique.php';"><a href="http://www.bdgest.com/critique.php" ><img src="images/dropdown4.gif" border="0" />Chroniques</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/prepub.php';"><a href="http://www.bdgest.com/prepub.php"><img src="images/dropdown4.gif" border="0" />Previews</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/news.php';"><a href="http://www.bdgest.com/news.php" ><img src="images/dropdown4.gif" border="0" />Les news</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/expos.php';"><a href="http://www.bdgest.com/expos.php" ><img src="images/dropdown4.gif" border="0" />Coups de projecteur</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/festivals.php';"><a href="http://www.bdgest.com/festivals.php"><img src="images/dropdown4.gif" border="0" />Festivals & Ev&egrave;nements</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/agenda_sorties.php';"><a href="http://www.bdgest.com/agenda_sorties.php"><img src="images/dropdown4.gif" border="0" />A para&icirc;tre</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/bdgestart.php';"><a href="http://www.bdgest.com/bdgestart.php"><img src="images/dropdown4.gif" border="0" />BDGest'Art</a></td></tr>
+	</table>
+	</div>
+	</div>
+	</td>
+	
+	
+	
+	<td class="menu_sep"></td>
+	<td onMouseOver="afficheId('menuCommunaute');" onMouseOut="cacheId('menuCommunaute');"><div class="menu_bleu"><a href="#">Communaut&eacute;&nbsp;&nbsp;<img src="images/dropdown.gif" border="0" /></a>
+	<div id="menuCommunaute" class="sous_menu">
+	<table width="100%">
+
+	<tr><td onclick="location.href='http://www.bdgest.com/galerie.php';"><a href="http://www.bdgest.com/galerie.php" ><img src="images/dropdown4.gif" border="0" />La galerie</a></td></tr>
+	<tr><td onclick="location.href='indispensables-BD.html';"><a href="indispensables-BD.html" ><img src="images/dropdown4.gif" border="0" />Les indispensables BD</a></td></tr>
+	<tr><td onclick="location.href='accueil_2.html';"><a href="accueil_2.html" ><img src="images/dropdown4.gif" border="0" />Avis des lecteurs</a></td></tr>
+	
+	<tr><td onclick="location.href='http://www.bdgest.com/concours.php';"><a href="http://www.bdgest.com/concours.php"><img src="images/dropdown4.gif" border="0" />Concours</a></td></tr>
+	<tr><td onclick="location.href='http://blog.bdgest.com/';"><a href="http://blog.bdgest.com/" ><img src="images/dropdown4.gif" border="0" />Blog</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/jeux.php';"><a href="http://www.bdgest.com/jeux.php" ><img src="images/dropdown4.gif" border="0" />Jeux</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/bdgestival.php';"><a href="http://www.bdgest.com/bdgestival.php"><img src="images/dropdown4.gif" border="0" />BDGest'<i>ival</i></a></td></tr>
+	</table>
+	</div>
+	</div>
+	</td>
+	
+	<td class="menu_sep"></td>
+	<td onMouseOver="afficheId('menuTop');" onMouseOut="cacheId('menuTop');"><div class="menu_bleu"><a href="#">&nbsp;&nbsp;Tops&nbsp;&nbsp;<img src="http://www.bdgest.com/images/dropdown.gif" border="0" />&nbsp;</a>
+	<div id="menuTop" class="sous_menu">
+	<table width="100%">
+	<tr><td onclick="location.href='http://www.bdgest.com/top.php';"><a href="http://www.bdgest.com/top.php" ><img src="http://www.bdgest.com/images/dropdown4.gif" border="0" />Top 5 des visiteurs</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/top_ventes.php';"><a href="http://www.bdgest.com/top_ventes.php" ><img src="http://www.bdgest.com/images/dropdown4.gif" border="0" />Meilleures ventes BD</a></td></tr>
+	</table>
+	</div>
+	</div>
+	</td>
+	
+	
+	<td class="menu_sep"></td>
+	<td onMouseOver="afficheId('menuOutils');" onMouseOut="cacheId('menuOutils');"><div class="menu_bleu"><a href="#">&nbsp;&nbsp;&nbsp;Outils&nbsp;&nbsp;<img src="images/dropdown.gif" border="0" />&nbsp;</a>
+	<div id="menuOutils" class="sous_menu">
+	<table width="100%">
+			<tr><td><a href="http://www.bdgest.com/forum/ucp.php?mode=login" ><font color="#FEC297"><img src="images/dropdown3.gif" border="0" />Tableau de bord</font></a></td></tr>
+		<tr><td><a href="http://www.bdgest.com/forum/ucp.php?mode=login" ><font color="#FEC297"><img src="images/dropdown3.gif" border="0" />Panneau de l'utilisateur</font></a></td></tr>
+		<tr><td><a href="http://www.bdgest.com/forum/ucp.php?mode=login"><font color="#FEC297"><img src="images/dropdown3.gif" border="0" />Vos messages priv&eacute;s</font></a></td></tr>
+			
+	
+	<tr><td onclick="location.href='http://mobile.bdgest.com/';"><a href="http://mobile.bdgest.com/" ><img src="images/dropdown4.gif" border="0" />La BEL sur votre mobile</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/bdgest.xml';"><a href="http://www.bdgest.com/bdgest.xml" ><img src="images/dropdown4.gif" border="0" />Flux RSS</a></td></tr>
+	</table>
+	</div>
+	</div>
+	</td>
+	
+	
+	
+	<td class="menu_sep"></td>
+	<td onMouseOver="afficheId('menuForum');" onMouseOut="cacheId('menuForum');"><div class="menu_bleu"><a href="http://www.bdgest.com/forum/">&nbsp;&nbsp;Forums&nbsp;&nbsp;<img src="images/dropdown.gif" border="0" /></a>
+	<div id="menuForum" class="sous_menu">
+	<table width="100%">
+	<tr><td onclick="location.href='http://www.bdgest.com/forum/';"><a href="http://www.bdgest.com/forum/" ><img src="images/dropdown4.gif" border="0" />Accueil des forums</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/forum/faq.php';"><a href="http://www.bdgest.com/forum/faq.php" ><img src="images/dropdown4.gif" border="0" />Aide</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/forum/search.php';"><a href="http://www.bdgest.com/forum/search.php"><img src="images/dropdown4.gif" border="0" />Recherche</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/forum/memberlist.php';"><a href="http://www.bdgest.com/forum/memberlist.php" ><img src="images/dropdown4.gif" border="0" />Les membres</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/forum/viewonline.php';"><a href="http://www.bdgest.com/forum/viewonline.php"><img src="images/dropdown4.gif" border="0" />Qui est en ligne</a></td></tr>
+	<tr height="21"><td bgcolor="#999999"><font color="#FFFFFF"><b>LES SECTIONS</b></font></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/forum/accueil.html';"><a href="http://www.bdgest.com/forum/accueil.html"><img src="images/dropdown4.gif" border="0" />Accueil</a></td></tr>	 
+	<tr><td onclick="location.href='http://www.bdgest.com/forum/bande-dessinee.html';"><a href="http://www.bdgest.com/forum/bande-dessinee.html"><img src="images/dropdown4.gif" border="0" />La bande dessinée</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/forum/autour-bd.html';"><a href="http://www.bdgest.com/forum/autour-bd.html"><img src="images/dropdown4.gif" border="0" />Autour de la bande dessinée</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/forum/informations.html';"><a href="http://www.bdgest.com/forum/informations.html"><img src="images/dropdown4.gif" border="0" />Le logiciel et le site</a></td></tr>
+	<tr><td onclick="location.href='http://www.bdgest.com/forum/autres-sujets.html';"><a href="http://www.bdgest.com/forum/autres-sujets.html"><img src="images/dropdown4.gif" border="0" />Autres sujets</a></td></tr>
+	</table>
+	</div>
+	</div>
+	</td>
+	
+	
+
+	<td class="menu_sep"></td>
+	<td onMouseOver="afficheId('menuCatalogue');" onMouseOut="cacheId('menuCatalogue');"><div class="menu_bleu"><a href="http://www.bedetheque.com">&nbsp;Bedetheque&nbsp;<img src="images/dropdown.gif" border="0" /></a>
+	<div id="menuCatalogue" class="sous_menu" style="width:210px";>
+	<table width="100%">
+	<tr height="21"><td bgcolor="#999999">
+	<form name="frmRechercheBEL" action="index.php" method="GET">
+	<input type="hidden" name="R" value="1">
+	<font style="color:#FFFFFF; font-weight:normal;">&nbsp;Chercher : </font><INPUT type="text" name="RechTexte" value="" style="height:11pt;width:105px;font-size: 8pt;font-family: Verdana;border:1px solid #888888; vertical-align:middle;padding:1px;"><input type="submit" name="btRecherche" value="OK" title="Chercher dans la bedetheque" style=" font-family: Verdana;  font-size: 7pt; width: 25px; height: 19px; vertical-align:middle;padding:0;">
+	</form>
+	</td></tr>
+	
+	<tr><td onclick="location.href='http://www.bedetheque.com/';"><a href="http://www.bedetheque.com/" ><img src="images/dropdown4.gif" border="0" />Accueil</a></td></tr>
+	<tr><td onclick="location.href='bandes_dessinees_A.html';"><a href="bandes_dessinees_A.html" ><img src="images/dropdown4.gif" border="0" />Catalogue Séries</a></td></tr>
+	<tr><td onclick="location.href='liste_auteurs_BD_A.html';"><a href="liste_auteurs_BD_A.html"><img src="images/dropdown4.gif" border="0" />Catalogue Auteurs</a></td></tr>
+	<tr><td onclick="location.href='accueil_8.html';"><a href="accueil_8.html" ><img src="images/dropdown4.gif" border="0" />Catalogue Para-BD</a></td></tr>
+	<tr><td onclick="location.href='liste_revues_0.html';"><a href="liste_revues_0.html" ><img src="images/dropdown4.gif" border="0" />Catalogue Revues</a></td></tr>
+	<tr><td onclick="location.href='liste_libraires_BD_A.html';"><a href="liste_libraires_BD_A.html" ><img src="images/dropdown4.gif" border="0" />Catalogue Libraires</a></td></tr>
+	<tr><td onclick="location.href='accueil_0.html';"><a href="accueil_0.html" ><img src="images/dropdown4.gif" border="0" />Les nouveautés</a></td></tr>
+	<tr><td onclick="location.href='create.php';"><a href="create.php" ><img src="images/dropdown4.gif" border="0" /><font style="color:#ff872f;"><b>NOUVEAU</b> :</font> Ajouter un album</a></td></tr>
+		
+	</table>
+	</div>
+	</div>
+	</td>
+	
+	<td class="menu_sep"></td>
+	<td><div class="menu_bleu2"><a href="ventes.html"  title="Petites annonces BD">Petites annonces BD</a></div></td>
+	<td class="menu_sep"></td>
+	
+	
+		
+	
+	
+	
+	</tr></table></center>
+    </div>
+    
+        
+    
+
+    
+    
+<div id="site" style="min-height:800px;">
+	<table width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+	<td valign="top" class="td_left">
+	
+		<!-- ******************************************************************************* -->
+		<!--                    Contenu principal gauche                                     -->
+		<!-- ******************************************************************************* -->
+					<center>
+						
+			
+			
+			<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://www.bdgest.com/openx/www/delivery/ajs.php':'http://www.bdgest.com/openx/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=6");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='http://www.bdgest.com/openx/www/delivery/ck.php?n=ae16a5a8&amp;cb=1712476311' target='_blank'><img src='http://www.bdgest.com/openx/www/delivery/avw.php?zoneid=6&amp;cb=1712476311&amp;n=ae16a5a8' border='0' alt='' /></a></noscript>
+
+
+
+
+			</center>	<br>	
+			
+				
+		
+					
+							<h1><font color="#CC0000">Erreur 404 !</font></h1>
+				<h2>La page que vous avez demandée n'existe pas sur le site</h2>
+				
+			
+						<table cellspacing=0 cellpadding=0 border=0  width="100%" height="1" BGCOLOR="#532201"><tr height="1"><td></td></tr></table>
+			<table cellpadding=0 cellspacing=0><tr height="5"><td></td></tr></table>
+			<center>
+			<table width="90%"><tr>
+			<td width="50%" valign="top">
+			<u><b>La Bedetheque</b></u><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/">Accueil de la base en ligne</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/indispensables-BD.html">Les indispensables BD</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/ventes.html">Petites annonces BD</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/vente_aide.php">Guide des ventes</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/vente_etat.php">Charte des états pour les ventes</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/accueil_0.html">Nouveautés</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/accueil_1.html">Dernièrs ajouts BD</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/accueil_8.html">Derniers ajouts ParaBD</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/accueil_2.html">Derniers Avis</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/accueil_series_noframe.php">Liste des séries</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/accueil_auteurs_noframe.php">Liste des auteurs</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bedetheque.com/accueil_libraires_noframe.php">Liste des libraires</a><br><br>
+
+
+
+			<u><b>Les rubriques BD</b></u><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com">Accueil</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/agenda_sorties.php">A paraître</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/bdgestart.php">BD Gest' Art</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/critique.php">Chroniques</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/concours.php">Concours</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/expos.php">Expos</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/festivals.php">Festivals/Evènements/Dédicaces</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/festivals.php?Action=Carte">Carte des évènements à venir</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/festivals.php?Action=Agenda">Agenda des évènements à venir</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/festivals.php?Action=Cal">Calendrier des évènements à venir</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/bdgest.xml">Flux RSS</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/top.php">Nouveautés et Top 5</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/prepub.php">Preview d'albums</a><br>			
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/news.php">WebZine et News</a><br><br>
+			
+						
+			<u><b>Le logiciel BD Gest'</b></u><br>	
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/presentation.php">Présentation</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/bdgest_evolution.php">Nouveautés de la version 6</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/telecharger.php">Telecharger</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/images/ico_pres3.png">Commander</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/presse.php">La presse en parle</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/faq.php">FAQ</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/aide/manuel.php">Aide</a><br>
+			
+			
+			
+			</td>
+			<td width="50%" valign="top">
+			
+			<u><b>Les jeux</b></u><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/jeux.php">Accueil des jeux</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/pixelo.php">PixeloBD</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/rapido.php">RapidoBD</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/trombino.php">TrombinoBD</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/bdgestival.php">BDGEst'ival</a><br><br>
+			
+			<u><b>Forums</b></u><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/">Accueil des forums</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Annonces-officielles/liste_sujet-1.htm">Annonces officielles</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Aide-Netiquette-et-FAQ-du-forum/liste_sujet-1.htm">Aide, Netiquette et FAQ du forum</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Forum-des-debutants/liste_sujet-1.htm">Forum des débutants</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Generalites-sur-la-Bande-Dessinee/liste_sujet-1.htm">Généralités sur la Bande Dessinée</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Bande-Dessinee-Franco-Belge/liste_sujet-1.htm">Bande Dessinée Franco-Belge</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Manga-Comics/liste_sujet-1.htm">Manga/Comics</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Collections-et-demandes-d-informations/liste_sujet-1.htm">Collections et demandes d'informations</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Ventes-Achats-Echanges-Recherches/liste_sujet-1.htm">Ventes, Achats, Echanges, Recherches</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Festivals-rencontres-et-expos/liste_sujet-1.htm">Festivals, rencontres et expos</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Quizzzzzzz/liste_sujet-1.htm">Quizzzzzzz</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Le-site-www-bdgest-com/liste_sujet-1.htm">Le site www.bdgest.com</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/Base-en-ligne-et-standardisation/liste_sujet-1.htm">Base en ligne et standardisation</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/BD-Gest-Logiciel/liste_sujet-1.htm">Le logiciel BD Gest'</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/forum/bdgest/BDGest-Addons/liste_sujet-1.htm">Addons pour BD Gest'</a><br><br>
+			
+			<u><b>Contact et informations</b></u><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/info.php">Nous contacter</a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/info.php">Qui sommes nous </a><br>
+			&nbsp;<img src="http://www.bdgest.com/images/puce_orange_petit.png" width="8" height="8">&nbsp;<a href="http://www.bdgest.com/publicite.php">Publicité et partenariats</a><br>
+
+			
+
+			</td>
+			</tr>
+			</table>
+			</center>
+				
+	</td>
+	<td valign="top" class="td_right">
+		<!-- ******************************************************************************* -->
+		<!--                    Contenu principal droite                                     -->
+		<!-- ******************************************************************************* -->
+		
+			<div class="pave_droite"><script> 
+	
+	$(document).ready(function () { 
+	
+	
+		// Gestion de la série
+		
+		$("#RechDirect").autocomplete("./ajax/serie_autocomplete.php", {
+			width: 250,
+			scrollHeight: 300,
+			selectFirst: true,
+			cacheLength: 10,
+			delay: 0,
+			max: 50,
+			minChars: 3,
+			autoFill: false,
+			mustMatch: false,
+			formatResult: function(row) {
+				var str = htmlspecialchars(row[0]);
+				return str;
+			}
+		});
+		
+		$("#RechDirect").result(function(event, data, formatted) {
+			$("#S").val(data[1]);
+		});
+		
+		
+		$('#RechDirect').change(function(){
+			var id_serie = $.ajax({
+  				url: "ajax/serie_test.php",
+  				type: "POST",
+  				data: ({SERIE : $('#RechDirect').val() }),
+  				async: false
+	 		}).responseText;
+			$("#S").val(trim(id_serie));
+		});
+		
+		
+		$("#RechCollection").autocomplete("./ajax/collection_autocomplete.php", {
+			width: 250,
+			scrollHeight: 300,
+			selectFirst: true,
+			cacheLength: 10,
+			delay: 0,
+			max: 50,
+			minChars: 3,
+			highlight: false,
+			extraParams: {
+       				Editeur: function() { return $("#RechEditeur").val(); }
+   			},
+			autoFill: false,
+			mustMatch: false,
+			formatResult: function(row) {
+				var str = htmlspecialchars(row[0]);
+				return str;
+			}
+		});
+		
+		$("#RechEditeur").autocomplete("./ajax/editeur_autocomplete.php", {
+			width: 250,
+			scrollHeight: 300,
+			selectFirst: true,
+			cacheLength: 10,
+			delay: 0,
+			max: 50,
+			minChars: 3,
+			autoFill: false,
+			mustMatch: false,
+			formatResult: function(row) {
+				var str = htmlspecialchars(row[0]);
+				return str;
+			}
+		});
+		
+		
+	      	
+	});
+</script> 
+
+<div class="contenu_droite">
+
+<img src="images/titre_recherche.png" class="titre_contenu_droite">
+<div class="sous_contenu_droite" >
+
+<form name="frmAccesDirect" action="index.php" method="GET">
+<input type="hidden" name="S" id="S" value="">
+<input type="hidden" name="R" value="1">
+<table  cellpadding="0" cellspacing="0"><tr>
+<td width="90" align="right" >Aller à :</td>
+<td align="center" width="160"><INPUT type="text" name="RechTexte" id="RechDirect" value="" style="width:150px;font-size: 8pt;font-family: Verdana;"></td>
+<td align="left" valign="top">
+<input type="submit" name="btGO" value="»" title="Accéder directement à une série" style=" font-family: Verdana;  font-size: 8pt; font-weight:bold; width: 30px; height: 19px">
+</td>
+</tr>
+</table>
+</form>
+<center><font style="font-size:7pt;" color="#888888">Accéder directement à la page d'une série …<br></font></center>
+
+<form name="frmRechercher" action="index.php" method="GET">
+<input type="hidden" name="R" value="1">
+
+<table  cellpadding="0" cellspacing="0" style="margin-top:5px;"><tr>
+<td width="90" align="right" >Rechercher :</td>
+<td align="center" width="160"><INPUT type="text" name="RechTexte" id="RechTexte" value="" style="width:150px;font-size: 8pt;font-family: Verdana;"></td>
+<td align="left" valign="top">
+<input type="submit" name="btRecherche" value="OK" title="Chercher dans la base de donn&eacute;es" style=" font-family: Verdana;  font-size: 7pt; width: 30px; height: 19px">
+</td>
+		
+</tr>
+</table>
+
+<center><font style="font-size:7pt;" color="#888888">… ou saisissez le nom d'une série, d'un auteur ou<br>le titre d'un album, pour une recherche détaillée.<br><A HREF="javascript:display('RechercheAvancee');" title="Plus d'options de recherche">Plus de critères</a></font></center>
+<div id="RechercheAvancee" style="display: none;" align="center">
+<table width="100%" cellpadding="1" cellspacing="0"><tr>
+		
+	
+		</tr>
+		<tr>
+		<td width="120" align="right">S&eacute;rie/Album :&nbsp;</td>
+		<td align="left"><INPUT type="text" name="RechSerie" value="" style="width:120px;font-size: 8pt;font-family: Verdana;"></td>
+		</tr>
+		<tr>
+		<td width="120" align="right">Mot Clé :&nbsp;</td>
+		<td align="left"><INPUT type="text" name="RechMotCle" value="" style="width:120px;font-size: 8pt;font-family: Verdana;"></td>
+		</tr>
+		<tr>
+		<td width="120" align="right">Auteur :&nbsp;</td>
+		<td align="left"><INPUT type="text" name="RechAuteur" value="" style="width:120px;font-size: 8pt;font-family: Verdana;"></td>
+		</tr>
+		<tr>
+		<td width="120" align="right">Editeur :&nbsp;</td>
+		<td align="left"><INPUT type="text" name="RechEditeur" id="RechEditeur" value="" style="width:120px;font-size: 8pt;font-family: Verdana;"></td>
+		</tr>
+		<tr>
+		<td width="120" align="right">Collection :&nbsp;</td>
+		<td align="left"><INPUT type="text" name="RechCollection" id="RechCollection" value="" style="width:120px;font-size: 8pt;font-family: Verdana;"></td>
+		</tr>
+		<tr>
+		<td width="120" align="right">Style :&nbsp;</td>
+		<td align="left"><INPUT type="text" name="RechStyle" value="" style="width:120px;font-size: 8pt;font-family: Verdana;"></td>
+		</tr>
+		<tr>
+		<td width="120" align="right">DL (mm/aaaa):&nbsp;</td>
+		<td align="left"><INPUT type="text" name="RechDL" value="" style="width:120px;font-size: 8pt;font-family: Verdana;"></td>
+		</tr>
+		<tr>
+		<td width="120" align="right">ISBN :&nbsp;</td>
+		<td align="left"><INPUT type="text" name="RechISBN" value="" style="width:120px;font-size: 8pt;font-family: Verdana;"></td>
+		</tr>
+		<tr>
+		<td colspan="2" align="center">
+		
+		<table cellpadding="1" cellspacing="0" border="0"><tr><td align="left">
+		<INPUT type="checkbox" name="RechExacte" > Rechercher le terme exact<br>
+		<INPUT type="checkbox" name="TouteLangues" > Dans toutes les langues<br>
+		<INPUT type="checkbox" name="Reeditions" > Afficher les rééditions<br>
+		</td></tr></table>
+		
+		</td>
+		</tr>
+		<tr>
+		</tr>
+		</form>
+		</table>
+		</div>
+		</div>
+</div></div>
+		
+					
+		
+			
+		
+				
+			
+				
+			
+			
+			
+			<div class="banniere_droite_bordure"><a href="http://www.bdgest.com/prepub.php?ClickV=1&IdPrepub=817"><img src="http://www.bdgest.com/prepub/Bandeaux/817_BanR.gif" border="0" width="300" height="150" title="Preview EnquÃªtes surnaturelles de Mina (Les) Descente aux enfers - Vents d'Ouest"></a><br></div>		
+		
+			<div class="banniere_droite">
+			
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://www.bdgest.com/openx/www/delivery/ajs.php':'http://www.bdgest.com/openx/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=8");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='http://www.bdgest.com/openx/www/delivery/ck.php?n=ae794c8b&amp;cb=1170706055' target='_blank'><img src='http://www.bdgest.com/openx/www/delivery/avw.php?zoneid=8&amp;cb=1170706055&amp;n=ae794c8b' border='0' alt='' /></a></noscript>		
+			</div>	
+		
+			<div class="pave_droite" style="margin-top:10px;">
+
+<div class="contenu_droite">
+<img src="images/titre_acces.png" class="titre_contenu_droite">
+<div class="sous_contenu_droite" style="top: -5px; left: 0px;">
+
+<style>
+	.menu_bleu3 {
+		font-size:7pt;
+	}
+</style>
+
+
+
+<center>
+<table width="275"  class="sous_menu" cellpadding=0 cellspacing=0><tr>
+	<td align="left"><font style="color:#888888;font-size:7pt;">Séries:</font></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_0.html">0</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_A.html">A</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_B.html">B</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_C.html">C</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_D.html">D</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_E.html">E</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_F.html">F</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_G.html">G</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_H.html">H</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_I.html">I</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_J.html">J</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_K.html">K</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_L.html">L</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_M.html">M</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_N.html">N</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_O.html">O</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_P.html">P</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_Q.html">Q</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_R.html">R</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_S.html">S</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_T.html">T</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_U.html">U</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_V.html">V</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_W.html">W</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_X.html">X</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_Y.html">Y</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/bandes_dessinees_Z.html">Z</a></td>		
+</tr>
+<tr>
+	<td  align="left"><font style="color:#888888;font-size:7pt;">Auteurs:</font></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_0.html">0</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_A.html">A</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_B.html">B</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_C.html">C</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_D.html">D</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_E.html">E</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_F.html">F</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_G.html">G</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_H.html">H</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_I.html">I</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_J.html">J</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_K.html">K</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_L.html">L</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_M.html">M</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_N.html">N</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_O.html">O</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_P.html">P</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_Q.html">Q</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_R.html">R</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_S.html">S</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_T.html">T</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_U.html">U</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_V.html">V</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_W.html">W</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_X.html">X</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_Y.html">Y</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_auteurs_BD_Z.html">Z</a></td>
+			
+</tr>
+<tr>
+	<td align="left"><font style="color:#888888;font-size:7pt;">Libraires:</font></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_0.html">0</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_A.html">A</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_B.html">B</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_C.html">C</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_D.html">D</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_E.html">E</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_F.html">F</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_G.html">G</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_H.html">H</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_I.html">I</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_J.html">J</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_K.html">K</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_L.html">L</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_M.html">M</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_N.html">N</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_O.html">O</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_P.html">P</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_Q.html">Q</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_R.html">R</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_S.html">S</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_T.html">T</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_U.html">U</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_V.html">V</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_W.html">W</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_X.html">X</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_Y.html">Y</a></td>
+	<td class="menu_bleu3"><A HREF="http://www.bedetheque.com/liste_libraires_BD_Z.html">Z</a></td>
+			
+</tr>
+
+</table>
+
+</center>
+</div></div></div>
+			<div class="pave_droite"><div class="contenu_droite">
+<img src="images/titre_statistiques.png" class="titre_contenu_droite">
+<div class="sous_contenu_droite" style="top: -7px; left: 5px;">
+
+
+<table width="100%"><tr>
+<td width="10%"></td>
+<td width="45%">
+
+		<table cellspacing="0" cellpadding="0"><tr><td align="right">
+		95127<br>
+		21684<br>
+		11735<br>
+		16008<br>
+	
+		</td><td width="5"></td><td align="left">
+		<FONT style="FONT-SIZE: 8pt">
+		<a href="http://www.bedetheque.com/" title="Accueil" target="_top">Albums</a><br>
+		<a href="http://www.bedetheque.com/accueil_series_noframe.php" title="series BD">Séries</a><br>
+		<a href="http://www.bedetheque.com/accueil_8.html" title="series BD">Para-BD</a><br>
+		<a href="http://www.bedetheque.com/accueil_auteurs_noframe.php" title="auteurs BD">Auteurs</a><br>
+		
+		</font>
+		</td></tr></table>
+</td>
+
+<td width="45%">
+		<table cellspacing="0" cellpadding="0"><tr><td align="right">
+	
+		400<br>
+		22664<br>
+		20756<br>
+		31929<br>
+		
+		</td><td width="5"></td><td align="left">
+		<FONT style="FONT-SIZE: 8pt">
+		<a href="http://www.bedetheque.com/accueil_libraires_noframe.php" title="libraires BD">Libraires</A> <br>
+		<a href="accueil_2.html">Avis</a><br>
+		<a href="/">Cotes</a><br>
+		<a href="ventes.html" title="Ventes" target="_top">Ventes</a><br>
+		</font>
+		</td></tr></table>
+</td>
+</tr>
+</table>
+
+
+
+</div></div></div>
+		
+			
+			<br>
+
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2">
+		<div id="footer">
+                <div class="piedDePage" align="center">
+                <a href="http://www.bdgest.com" rel="nofollow">BDGest.com</a> |
+<a href="http://www.bedetheque.com" rel="nofollow">Bedetheque.com</a> |
+<a href="http://www.bdgest.com/bdgest.xml">Flux RSS</a> |
+<a href="http://www.bdgest.com/forum/">Forums</a> |
+<a href="http://www.bdgest.com/publicite.php">Publicit&eacute; et partenariat</a> |
+<a href="http://www.bdgest.com/presentation.php">A propos du logiciel BD Gest'</a> |
+<a href="http://www.bdgest.com/info.php">Nous contacter</a>                </div>
+               	</div>
+	</td>
+	</tr>
+	
+	<tr>
+	<td colspan="2">
+		<div id="footer_menu">
+              	 
+<table>
+<tr>
+<td width="150" class="footer_menu_titre">Logiciel</td>
+<td>
+<a href="http://www.bdgest.com/presentation.php" title="Présentation du logiciel BD Gest'">Présentation</a> |
+<a href="http://www.bdgest.com/telecharger.php" title="Téléchargement du logiciel BD Gest'">Téléchargement</a> |
+<a href="http://www.bdgest.com/commander.php" title="Achat du logiciel BD Gest'">Commande</a> |
+<a href="http://www.bdgest.com/presse.php" title="La presse parle de BD Gest'">La presse en parle</a> |
+<a href="http://www.bdgest.com/aide/manuel.php" title="Aide du logiciel BD Gest'">Aide</a>
+</td>
+</tr>
+
+<tr>
+<td width="150" class="footer_menu_titre">Actualités</td>
+<td>
+<a href="http://www.bdgest.com/critique.php" title="Les chroniques BD">Chroniques</a> |
+<a href="http://www.bdgest.com/prepub.php" title="Les previews BD">Previews</a> |
+<a href="http://www.bdgest.com/news.php" title="Les News BD">News</a> |
+<a href="http://www.bdgest.com/expos.php" title="Les expos BD">Expositions</a> |
+<a href="http://www.bdgest.com/festivals.php" title="Les évévements BD">Festivals et Evènements</a> |
+<a href="http://www.bdgest.com/agenda_sorties.php" title="Parutions BD">A paraître</a> |
+<a href="http://www.bdgest.com/bdgestart.php" title="BDGest'Arts">BDGest'Arts</a>
+</td>
+</tr>
+
+<tr>
+<td width="150" class="footer_menu_titre">Communauté</td>
+<td>
+<a href="http://www.bdgest.com/forum/" title="Les forums BD">Forums</a> |
+<a href="http://www.bdgest.com/top.php" title="TOP 5 BD">Top 5 du mois</a> |
+<a href="http://www.bdgest.com/galerie.php" title="La Galerie">Galerie</a> |
+<a href="http://www.bdgest.com/concours.php" title="Councours BD">Concours</a> |
+<a href="http://blog.bdgest.com/" title="Blog BD">Blog</a> |
+<a href="http://www.bdgest.com/jeux.php" title="Jeux BD">Jeux</a> |
+<a href="http://www.bdgest.com/bdgestival.php" title="BDGest'ival">BDGest'ival</a> |
+<a href="http://www.bedetheque.com/accueil_2.html" title="">Avis des lecteurs</a>
+</td>
+</tr>
+
+<tr>
+<td width="150" class="footer_menu_titre">Bedetheque</td>
+<td>
+<a href="http://www.bedetheque.com/" title="La bedetheque">Accueil</a> |
+<a href="http://www.bedetheque.com/bandes_dessinees_A.html" title="">Séries</a> |
+<a href="http://www.bedetheque.com/liste_auteurs_BD_A.html" title="">Auteurs</a> |
+<a href="http://www.bedetheque.com/accueil_8.html" title="">Para-BD</a> |
+<a href="http://www.bedetheque.com/liste_libraires_BD_A.html" title="">Libraires</a> |
+<a href="http://www.bedetheque.com/accueil_0.html" title="">Nouveautés</a> |
+<a href="http://www.bedetheque.com/indispensables-BD.html" title="">Les indispensables</a> |
+<a href="http://www.bedetheque.com/ventes.html" title="">Petites annonces</a>
+
+</td>
+</tr>
+
+<tr>
+<td width="150" class="footer_menu_titre" valign="top">Nouveautés</td>
+<td>
+<a href="http://www.bedetheque.com/accueil_0.html" title="La bedetheque">Tous</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Bamboo" title="">Bamboo</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Casterman" title="">Casterman</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Dargaud" title="">Dargaud</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Delcourt" title="">Delcourt</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Dupuis" title="">Dupuis</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Futuropolis" title="">Futuropolis</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Glénat" title="">Glénat</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Kana" title="">Kana</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Marvel France" title="">Marvel</a><br>
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Le Lombard" title="">Le Lombard</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Les Humanoïdes Associés" title="">Les humanïdes associés</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Panini comics" title="">Panini</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Pika Edition" title="">Pika</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Soleil Productions" title="">Soleil Productions</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Tonkam" title="">Tonkam</a> |
+<a href="http://www.bedetheque.com/index.php?TypeAffichage=0&FiltreEditeur=Vents d'Ouest" title="">Vents d'Ouest</a> 
+
+</td>
+</tr>
+
+	
+	
+</table>
+
+               	</div>
+	</td>
+	</tr>
+	
+	<tr>
+	<td colspan="2">
+		<div id="footer_legal">
+              	 	<table width="100%">
+	<tr>
+	<td width="100">
+	</td>
+	<td>
+    	<strong>BDGest.com et Bedetheque.com, les sites de référence de la bande dessinée</strong><br />
+ 	<A HREF="javascript:AfficheCnil('http://www.bdgest.com/conditions.html');">Conditions d'utilisation</A> &#149;
+ 	<A HREF="javascript:AfficheCnil('http://www.bdgest.com/cnil.html')">Informatique & liberté</A> &#149;
+ 	<a href="http://www.bdgest.com/plan.php">Plan du site</a> &#149;
+ 	<a href="http://mobile.bdgest.com/">Mobile</a>
+ 	 	<br>
+	Copyright &copy; 1998-2009 <a href="http://www.bdgest.com/info.php" title="Tout pour la BD">Home Solutions</a> Tous droits r&eacute;serv&eacute;s.
+	
+	 <br>Page générée le 15/01/2011 à 16:48:19 en 0.19 sec &bull; 276<span style="font-size:8px;">(26)</span> connectés sur le site<br>Record : 493 connectés le 16/11/2010 à 17:09<br>	</td>
+	<td width ="100" valign="top" align="left">
+	
+	<a href="http://www.xiti.com/xiti.asp?s=59905" title="WebAnalytics" target="_top">
+	<script type="text/javascript">
+	<!--
+	Xt_param = 's=59905&p=BEL_Plan';
+	try {Xt_r = top.document.referrer;}
+	catch(e) {Xt_r = document.referrer; }
+	Xt_h = new Date();
+	Xt_i = '<img width="80" height="15" border="0" alt="" ';
+	Xt_i += 'src="http://logv14.xiti.com/g.xiti?'+Xt_param;
+	Xt_i += '&hl='+Xt_h.getHours()+'x'+Xt_h.getMinutes()+'x'+Xt_h.getSeconds();
+	if(parseFloat(navigator.appVersion)>=4)
+	{Xt_s=screen;Xt_i+='&r='+Xt_s.width+'x'+Xt_s.height+'x'+Xt_s.pixelDepth+'x'+Xt_s.colorDepth;}
+	document.write(Xt_i+'&ref='+Xt_r.replace(/[<>"]/g, '').replace(/&/g, '$')+'" title="Internet Audience">');
+	//-->
+	</script>
+	<noscript>
+	Mesure d'audience ROI statistique webanalytics par <img width="80" height="15" src="http://logv14.xiti.com/g.xiti?s=59905&p=BEL_Plan" alt="WebAnalytics" />
+	</noscript></a>
+	
+	</td>
+	</tr>
+	</table>
+       
+	               	</div>
+	</td>
+	</tr>
+	
+	
+	</table>
+</div>
+		
+            
+	       
+
+
+</div>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-2597634-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+
+</body>
+</html>
+
+	

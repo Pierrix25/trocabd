@@ -1,0 +1,1 @@
+<?php include_partial('offreList', array('liste' => $monOffre, 'contexte' => 'MonOffre')) ?>

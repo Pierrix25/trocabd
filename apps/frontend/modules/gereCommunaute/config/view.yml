@@ -1,0 +1,21 @@
+editSuccess:
+
+  metas:
+    title:        Mise à jour BD
+    
+listSuccess:
+
+  metas:
+    title:        Liste de BD
+
+rechercheSuccess:
+
+  metas:
+    title:        Recherche de BD
+
+showSuccess:
+
+  metas:
+    title:        Fiche BD
+
+
